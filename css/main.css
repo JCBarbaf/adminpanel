@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #991f18;
+    --primary-color: #0038a8;
     --secondary-color: #5e3751;
     --tertiary-color: #969cac;
     --grey-white: #bbc2d4;
@@ -9,7 +9,7 @@
     --red: #991f18;
     --font: Arial, "Helvetica Neue", Helvetica, sans-serif;
     --sahdow: 5px 5px 0px 0px rgba(0, 0, 0, 0.2);
-    --border: 2px solid rgba(0, 0, 0, 0.2);
+    --border: 3px solid rgba(0, 0, 0, 0.2);
     --modal-zindex: 400;
     --burger-menu-zindex: 200;
     --burger-button-zindex: 300;
@@ -64,7 +64,6 @@ header {
     align-items: center;
     padding: 0 3%;
     border-bottom: var(--border);
-    border-width: 3px;
 }
 body>header button:hover {
     animation: none;
@@ -172,7 +171,6 @@ header .logo {
     background-color: var(--primary-color);
     filter: brightness(0.8);
     border-bottom: var(--border);
-    border-width: 3px;
 }
 .burger.opened .burger-menu {
     transform: translateX(0);
@@ -262,7 +260,6 @@ main {
     padding: 2% 3% 1% 2%;
     align-items: center;
     border-bottom: var(--border);
-    border-width: 3px;
 }
 .list-content {
     flex: 1;
@@ -297,7 +294,6 @@ main {
     display: flex;
     justify-content: flex-end;
     border-bottom: var(--border);
-    border-width: 2px;
     padding: 1%;
 }
 .data-table-content {
@@ -309,7 +305,6 @@ main {
     justify-content: center;
     padding: 2%;
     border-top: var(--border);
-    border-width: 3px;
 }
 .pagination {
     display: flex;
@@ -353,7 +348,6 @@ span,label {
     align-items: center;
     flex-wrap: wrap;
     border-bottom: var(--border);
-    border-width: 3px;
 }
 .add-header .tabs {
     display: flex;
