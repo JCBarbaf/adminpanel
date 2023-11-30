@@ -7,6 +7,7 @@
     --black: #111727;
     --white: #cbdbeb;
     --red: #991f18;
+    --green: #229c22;
     --font: Arial, "Helvetica Neue", Helvetica, sans-serif;
     --sahdow: 5px 5px 0px 0px rgba(0, 0, 0, 0.2);
     --border: 3px solid rgba(0, 0, 0, 0.2);
@@ -368,6 +369,12 @@ span,label {
 .data-add form {
     padding: 2%;
 }
+.tab-content {
+    display: none;
+}
+.tab-content.selected {
+    display: block;
+}
 .form-row {
     display: flex;
     flex-wrap: wrap;
@@ -392,6 +399,12 @@ span,label {
     border-radius: 5px 5px 0 0;
     resize: vertical;
 }
+.form-field .invalid {
+    border-color: var(--red);
+}
+.form-field .valid {
+    border-color: var(--green);
+}
 .form-field textarea {
     min-height: 5rem;
 }
@@ -399,8 +412,22 @@ span,label {
 .form-field input[type="number"]::-webkit-inner-spin-button {
     appearance: none;
 }
-.form-field input:focus, .form-field textarea:focus {
+/* .form-field input:focus, .form-field textarea:focus {
     border-color: var(--primary-color);
+} */
+.form-field input[type="file"] {
+    display: none;
+}
+.form-field .file-icon {
+    background-color: var(--tertiary-color);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    margin-top: 1%;
+    cursor: pointer;
+    border-radius: 5px;
 }
 /* Animaciones */
 @keyframes shake {
