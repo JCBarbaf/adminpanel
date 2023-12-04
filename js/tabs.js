@@ -1,7 +1,5 @@
 export default (() => {
-
     let tabs = document.querySelector('.tabs');
-
     tabs?.addEventListener('click', async (event) => {
         if (event.target.closest('.tab')) {
             let tabClicked = event.target.closest('.tab');
@@ -11,4 +9,4 @@ export default (() => {
             document.querySelector(`[data-field="${tabClicked.dataset.field}"].tab-content`).classList.add('selected');
         }
     });
-  })();
+})();
