@@ -1,22 +1,22 @@
-class Title extends HTMLElement {
+class Menu extends HTMLElement {
+  constructor() {
+    super()
+    this.shadow = this.attachShadow({ mode: 'open' })
+  }
 
-    constructor () {
-      super()
-      this.shadow = this.attachShadow({ mode: 'open' })
-      this.firstTime = true;
-    }
-  
-    connectedCallback () {
-      this.render()
-    }
-  
-    render () {
-      this.shadow.innerHTML =
-      /*html*/`
-      <style>
+  connectedCallback() {
+    this.render()
+  }
+
+  render() {
+    this.shadow.innerHTML =
+        /*html*/`
+        <style>
         .burger-button {
             position: relative;
             z-index: var(--burger-button-zindex);
+            background: none;
+            border: none;
         }
         .burger-icon {
             width: 40px;
@@ -117,9 +117,8 @@ class Title extends HTMLElement {
         .burger.opened .burger-menu {
             transform: translateX(0);
         }
-      </style>
-  
-      <div class="burger">
+        </style>
+        <div class="burger">
             <button class="burger-button">
                 <div class="burger-icon">
                     <div class="burger-line"></div>
@@ -132,22 +131,17 @@ class Title extends HTMLElement {
             </div>
         </div>
       `
-        burgerButton?.addEventListener('click',() => {
-        
-        this.shadow.querySelector('.title').addEventListener('click', () => {
-            this.Burger()
-        })
+    var firstTime = true;
+    var burgerButton = this.shadow.querySelector('.burger-button');
+    burgerButton?.addEventListener('click', () => {
+      if (firstTime) {
+        firstTime = false;
+        burgerButton.parentNode.classList.add('opened');
+      } else {
+        burgerButton.parentNode.classList.toggle('opened');
+        burgerButton.parentNode.classList.toggle('closed');
+      }
     })
-    }
-    burger() {
-        if (firstTime) {
-            firstTime = false;
-            burgerButton.parentNode.classList.add('opened');
-        } else {
-            burgerButton.parentNode.classList.toggle('opened');
-            burgerButton.parentNode.classList.toggle('closed');
-        }
-    }
   }
-  
-  customElements.define('burger-component');
+}
+customElements.define('menu-component', Menu);
