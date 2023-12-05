@@ -32,7 +32,7 @@ class Filter extends HTMLElement {
                 visibility: visible;
             }
             .modal-content {
-                background-color: var(--secondary-color);
+                background-color: var(--secondary-color,rgb(94, 55, 81));
                 min-width: 60%;
                 border-radius: 20px;
                 overflow: hidden;
@@ -43,7 +43,7 @@ class Filter extends HTMLElement {
                 transform: scale(1);
             }
             .modal-content h3 {
-                background-color: var(--primary-color);
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 margin: 0;
                 padding: 1%;
                 text-align: center;
@@ -57,7 +57,7 @@ class Filter extends HTMLElement {
                 padding: 2% 0;
             }
             button {
-                background-color: var(--tertiary-color);
+                background-color: var(--tertiary-color,rgb(150, 156, 172));
                 padding: 1% 5%;
                 border-radius: 10px;
                 border: none;
@@ -68,7 +68,7 @@ class Filter extends HTMLElement {
                 filter: brightness(1.1);
             }
             .close {
-                background-color: var(--red);
+                background-color: var(--red,rgb(153, 31, 24));
             }
             .form-row {
                 display: flex;
@@ -83,21 +83,21 @@ class Filter extends HTMLElement {
             input,textarea {
                 width: 95%;
                 height: 2rem;
-                background-color: var(--white);
+                background-color: var(--white,white);
                 color: var(--black);
                 margin-top: 2%;
                 padding: 1% 2%;
                 border: none;
-                border-bottom: var(--border);
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 border-width: 5px;
                 border-radius: 5px 5px 0 0;
                 resize: vertical;
             }
             .invalid {
-                border-color: var(--red);
+                border-color: var(--red,rgb(153, 31, 24));
             }
             .valid {
-                border-color: var(--green);
+                border-color: var(--green,rgb(34, 156, 34));
             }
             textarea {
                 min-height: 5rem;

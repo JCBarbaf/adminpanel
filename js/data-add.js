@@ -17,7 +17,7 @@ class DataAdd extends HTMLElement {
                 width: 30px;
             }
             svg * {
-                fill: var(--white);
+                fill: var(--white,white);
             }
             button {
                 background: none;
@@ -44,27 +44,27 @@ class DataAdd extends HTMLElement {
                 background: none;
             }
             *::-webkit-scrollbar-thumb {
-                background: var(--primary-color);
+                background: var(--primary-color,rgb(0, 56, 168));
                 border-radius: 10px;
             }
             label {
-                color: var(--tertiary-color);
+                color: var(--tertiary-color,rgb(150, 156, 172));
                 margin-right: 1%;
                 font-weight: bold;
             }
             main {
                 overflow: hidden;
-                background-color: var(--secondary-color);
+                background-color: var(--secondary-color,rgb(94, 55, 81));
                 border-radius: 20px;
-                box-shadow: var(--sahdow)
+                box-shadow: var(--sahdow,5px 5px 0px 0px rgba(0, 0, 0, 0.2))
             }
             header {
-                background-color: var(--primary-color);
+                background-color: var(--primary-color, rgb(0, 56, 168));
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 flex-wrap: wrap;
-                border-bottom: var(--border);
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .tabs {
                 display: flex;
@@ -73,7 +73,7 @@ class DataAdd extends HTMLElement {
                 width: 100%;
                 height: 100%;
                 padding: 0 10%;
-                background-color: var(--primary-color);
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 cursor: pointer;
             }
             .tab.selected {
@@ -104,21 +104,21 @@ class DataAdd extends HTMLElement {
             .form-field input, .form-field textarea {
                 width: 95%;
                 height: 2rem;
-                background-color: var(--white);
-                color: var(--black);
+                background-color: var(--white,white);
+                color: var(--black,black);
                 margin-top: 2%;
                 padding: 1% 2%;
                 border: none;
-                border-bottom: var(--border);
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 border-width: 5px;
                 border-radius: 5px 5px 0 0;
                 resize: vertical;
             }
             .invalid {
-                border-color: var(--red);
+                border-color: var(--red,rgb(153, 31, 24));
             }
             .valid {
-                border-color: var(--green);
+                border-color: var(--green,rgb(34, 156, 34));
             }
             textarea {
                 min-height: 5rem;
@@ -131,8 +131,8 @@ class DataAdd extends HTMLElement {
                 display: none;
             }
             .file-icon {
-                background-color: var(--tertiary-color);
-                color: var(--white);
+                background-color: var(--tertiary-color,rgb(150, 156, 172));
+                color: var(--white,white);
                 display: flex;
                 justify-content: center;
                 align-items: center;

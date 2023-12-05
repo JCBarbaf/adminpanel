@@ -18,7 +18,7 @@ class DataList extends HTMLElement {
                 width: 30px;
             }
             svg * {
-                fill: var(--white);
+                fill: var(--white,white);
             }
             button {
                 background: none;
@@ -36,11 +36,11 @@ class DataList extends HTMLElement {
                 background: none;
             }
             *::-webkit-scrollbar-thumb {
-                background: var(--primary-color);
+                background: var(--primary-color,rgb(0, 56, 168));
                 border-radius: 10px;
             }
             span {
-                color: var(--tertiary-color);
+                color: var(--tertiary-color,rgb(150, 156, 172));
                 margin-right: 1%;
                 font-weight: bold;
             }
@@ -51,19 +51,19 @@ class DataList extends HTMLElement {
                 justify-content: space-between;
                 gap: 1%;
                 overflow: hidden;
-                background-color: var(--grey-black);
+                background-color: var(--grey-black,rgb(32, 39, 55));
                 border-radius: 20px;
-                box-shadow: var(--sahdow);
+                box-shadow: var(--sahdow,5px 5px 0px 0px rgba(0, 0, 0, 0.2));
             }
             header {
-                background-color: var(--primary-color);
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 margin: 0;
                 padding: 0.5%;
                 display: flex;
                 justify-content: space-between;
                 padding: 2% 3% 1% 2%;
                 align-items: center;
-                border-bottom: var(--border);
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .list-content {
                 flex: 1;
@@ -74,28 +74,28 @@ class DataList extends HTMLElement {
             }
             .data-table {
                 width: 95%;
-                background-color: var(--secondary-color);
+                background-color: var(--secondary-color,rgb(94, 55, 81));
                 margin: 0 auto 3%;
                 border-radius: 10px;
                 overflow: hidden;
-                box-shadow: var(--sahdow)
+                box-shadow: var(--sahdow,5px 5px 0px 0px rgba(0, 0, 0, 0.2))
             }
             .data-table header {
-                background-color: var(--primary-color);
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 display: flex;
                 justify-content: flex-end;
-                border-bottom: var(--border);
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 padding: 1%;
             }
             .data-table-content {
                 padding: 1% 3%;
             }
             footer {
-                background-color: var(--primary-color);
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 display: flex;
                 justify-content: center;
                 padding: 2%;
-                border-top: var(--border);
+                border-top: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .pagination {
                 display: flex;
@@ -117,8 +117,8 @@ class DataList extends HTMLElement {
                 transform: scaleX(-1);
             }
             .pagination .current-page {
-                border-bottom: var(--border);
-                border-color: var(--tertiary-color);
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
+                border-color: var(--tertiary-color,rgb(150, 156, 172));
             }
             @keyframes shake {
                 0% {

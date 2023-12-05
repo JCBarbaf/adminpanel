@@ -33,7 +33,7 @@ class Delete extends HTMLElement {
                 visibility: visible;
             }
             .modal-content {
-                background-color: var(--secondary-color);
+                background-color: var(--secondary-color,rgb(94, 55, 81));
                 min-width: 20%;
                 border-radius: 10px;
                 overflow: hidden;
@@ -44,7 +44,7 @@ class Delete extends HTMLElement {
                 transform: scale(1);
             }
             .modal-content h3 {
-                background-color: var(--primary-color);
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 margin: 0;
                 padding: 3% 1%;
                 text-align: center;
@@ -59,7 +59,7 @@ class Delete extends HTMLElement {
             }
             button {
                 width: 30%;
-                background-color: var(--tertiary-color);
+                background-color: var(--tertiary-color,rgb(150, 156, 172));
                 padding: 1% 5%;
                 border-radius: 10px;
                 color: inherit;
@@ -70,7 +70,7 @@ class Delete extends HTMLElement {
                 filter: brightness(1.1);
             }
             .close {
-                background-color: var(--red);
+                background-color: var(--red,rgb(153, 31, 24));
             }
         </style>
         <div class="delete modal">

@@ -13,6 +13,7 @@ class Title extends HTMLElement {
     render () {
       this.shadow.innerHTML =
       /*html*/`
+      <style></style>
       <div class="title">
         <h1>${this.title}</h1>
       </div>

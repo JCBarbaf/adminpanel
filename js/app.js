@@ -5,3 +5,4 @@ import './burger-menu.js'
 import './filter.js';
 import './delete.js'
 import './notification.js'
+import './crud.js'
