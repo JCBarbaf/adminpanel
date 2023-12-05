@@ -1,9 +1,7 @@
-import './filter.js';
-// import './burger.js';
-import './tabs.js';
+import './data-add.js'
 import './data-list.js';
-// import './delete-modal.js';
-import './validation.js'
 import './title.js'
 import './burger-menu.js'
+import './filter.js';
 import './delete.js'
+import './notification.js'

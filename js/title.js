@@ -12,13 +12,7 @@ class Title extends HTMLElement {
   
     render () {
       this.shadow.innerHTML =
-      `
-      <style>
-        h1{
-          font-family:  Arial, "Helvetica Neue", Helvetica, sans-serif;
-        }
-      </style>
-  
+      /*html*/`
       <div class="title">
         <h1>${this.title}</h1>
       </div>

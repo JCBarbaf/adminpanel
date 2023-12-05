@@ -24,7 +24,7 @@ class Delete extends HTMLElement {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                z-index: var(--modal-zindex);
+                z-index: 400;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -52,12 +52,12 @@ class Delete extends HTMLElement {
             .modal-content form {
                 padding: 2%;
             }
-            .modal-content .buttons {
+            .buttons {
                 display: flex;
                 justify-content: space-evenly;
                 padding: 5% 0;
             }
-            .modal-content button {
+            button {
                 width: 30%;
                 background-color: var(--tertiary-color);
                 padding: 1% 5%;
@@ -65,11 +65,11 @@ class Delete extends HTMLElement {
                 color: inherit;
                 border: none;
             }
-            .modal-content button:hover {
+            button:hover {
                 transform: scale(1.1);
                 filter: brightness(1.1);
             }
-            .modal-content .close {
+            .close {
                 background-color: var(--red);
             }
         </style>

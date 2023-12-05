@@ -23,7 +23,7 @@ class Filter extends HTMLElement {
                 left: 0;
                 right: 0;
                 bottom: 0;
-                z-index: var(--modal-zindex);
+                z-index: 400;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -56,18 +56,18 @@ class Filter extends HTMLElement {
                 justify-content: space-evenly;
                 padding: 2% 0;
             }
-            .modal-content button {
+            button {
                 background-color: var(--tertiary-color);
                 padding: 1% 5%;
                 border-radius: 10px;
                 border: none;
                 color: inherit;
             }
-            .modal-content button:hover {
+            button:hover {
                 transform: scale(1.1);
                 filter: brightness(1.1);
             }
-            .modal-content .close {
+            .close {
                 background-color: var(--red);
             }
             .form-row {
@@ -76,12 +76,11 @@ class Filter extends HTMLElement {
                 justify-content: space-between;
             }
             .form-field {
-                /* width: 45%; */
                 flex: 1;
                 margin: 1% 0;
                 padding: 1%;
             }
-            .form-field input, .form-field textarea {
+            input,textarea {
                 width: 95%;
                 height: 2rem;
                 background-color: var(--white);
@@ -94,17 +93,17 @@ class Filter extends HTMLElement {
                 border-radius: 5px 5px 0 0;
                 resize: vertical;
             }
-            .form-field .invalid {
+            .invalid {
                 border-color: var(--red);
             }
-            .form-field .valid {
+            .valid {
                 border-color: var(--green);
             }
-            .form-field textarea {
+            textarea {
                 min-height: 5rem;
             }
-            .form-field input[type="number"]::-webkit-outer-spin-button,
-            .form-field input[type="number"]::-webkit-inner-spin-button {
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
                 appearance: none;
             }
             input:focus, textarea:focus {
