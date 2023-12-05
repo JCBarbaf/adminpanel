@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="shortcut icon" href="https://www.jcbarbaf.com/img/isotipo.svg" type="image/x-icon">
-        <script type="module" src="js/main.js"></script>
+        <script type="module" src="js/app.js"></script>
 </head>
 <body>
     <header>
@@ -32,15 +32,7 @@
                 </header>
                 <filter-component></filter-component>
                 <div class="list-content">
-                    <div class="delete modal">
-                        <div class="modal-content">
-                            <h3>¿Seguro que quieres borrar?</h3>
-                            <div class="buttons">
-                                <button>Si</button>
-                                <button class="close">No</button>
-                            </div>
-                        </div>
-                    </div>
+                    <delete-component></delete-component>
                     <div class="data-table">
                         <div class="data-table-header">
                             <button class="edit-button">
