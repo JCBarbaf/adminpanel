@@ -24,9 +24,9 @@ class Notification extends HTMLElement {
             right: 0;
             display: flex;
             align-items: center;
+            padding: 1% 5%;
             background-color: var(--green,rgb(34, 156, 34));
             color: var(--white,white);
-            padding: 1% 5%;
             transform: translateX(100%);
             transition: transform 0.3s ease-in;
         }

@@ -17,26 +17,26 @@ class Delete extends HTMLElement {
       /*html*/`
         <style>
             .modal {
-                visibility: hidden;
-                background-color: rgba(0, 0, 0, 0.2);
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                z-index: 400;
+                visibility: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background-color: rgba(0, 0, 0, 0.2);
+                z-index: 400;
             }
             .modal.active {
                 visibility: visible;
             }
             .modal-content {
-                background-color: var(--secondary-color,rgb(94, 55, 81));
                 min-width: 20%;
-                border-radius: 10px;
                 overflow: hidden;
+                background-color: var(--secondary-color,rgb(94, 55, 81));
+                border-radius: 10px;
                 transform: scale(0);
                 transition: transform 0.1s ease-out;
             }
@@ -44,9 +44,9 @@ class Delete extends HTMLElement {
                 transform: scale(1);
             }
             .modal-content h3 {
-                background-color: var(--primary-color,rgb(0, 56, 168));
                 margin: 0;
                 padding: 3% 1%;
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 text-align: center;
             }
             .modal-content form {
@@ -59,11 +59,11 @@ class Delete extends HTMLElement {
             }
             button {
                 width: 30%;
-                background-color: var(--tertiary-color,rgb(150, 156, 172));
                 padding: 1% 5%;
-                border-radius: 10px;
+                background-color: var(--tertiary-color,rgb(150, 156, 172));
                 color: inherit;
                 border: none;
+                border-radius: 10px;
             }
             button:hover {
                 transform: scale(1.1);

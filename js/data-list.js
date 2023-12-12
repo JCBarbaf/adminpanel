@@ -40,8 +40,8 @@ class DataList extends HTMLElement {
                 border-radius: 10px;
             }
             span {
-                color: var(--tertiary-color,rgb(150, 156, 172));
                 margin-right: 1%;
+                color: var(--tertiary-color,rgb(150, 156, 172));
                 font-weight: bold;
             }
             main {
@@ -57,44 +57,44 @@ class DataList extends HTMLElement {
             }
             header {
                 background-color: var(--primary-color,rgb(0, 56, 168));
-                margin: 0;
-                padding: 0.5%;
                 display: flex;
                 justify-content: space-between;
-                padding: 2% 3% 1% 2%;
                 align-items: center;
+                margin: 0;
+                <!-- padding: 0.5%; -->
+                padding: 2% 3% 1% 2%;
                 border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .list-content {
+                width: 95%;
                 flex: 1;
                 overflow-y: auto;
-                width: 95%;
                 margin: 0 auto;
                 padding: 0 1%;
             }
             .data-table {
                 width: 95%;
-                background-color: var(--secondary-color,rgb(94, 55, 81));
-                margin: 0 auto 3%;
-                border-radius: 10px;
                 overflow: hidden;
+                margin: 0 auto 3%;
+                background-color: var(--secondary-color,rgb(94, 55, 81));
+                border-radius: 10px;
                 box-shadow: var(--sahdow,5px 5px 0px 0px rgba(0, 0, 0, 0.2))
             }
             .data-table header {
-                background-color: var(--primary-color,rgb(0, 56, 168));
                 display: flex;
                 justify-content: flex-end;
-                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 padding: 1%;
+                background-color: var(--primary-color,rgb(0, 56, 168));
+                border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .data-table-content {
                 padding: 1% 3%;
             }
             footer {
-                background-color: var(--primary-color,rgb(0, 56, 168));
                 display: flex;
                 justify-content: center;
                 padding: 2%;
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 border-top: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .pagination {
@@ -106,8 +106,8 @@ class DataList extends HTMLElement {
                 width: 15px;
             }
             .pagination button:hover {
-                animation: none;
                 filter: brightness(0.8);
+                animation: none;
             }
             .pagination button:disabled {
                 font-weight: bold;

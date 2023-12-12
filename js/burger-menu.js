@@ -14,9 +14,9 @@ class Menu extends HTMLElement {
         <style>
             .burger-button {
                 position: relative;
-                z-index: 300;
                 background: none;
                 border: none;
+                z-index: 300;
             }
             .burger-icon {
                 width: 40px;
@@ -24,14 +24,14 @@ class Menu extends HTMLElement {
                 position: relative;
             }
             .burger-line {
-                background-color: var(--white,white);
                 width: 90%;
                 height: 10%;
-                border-radius: 50px;
                 position: absolute;
                 left: 0;
                 right: 0;
                 margin: auto;
+                background-color: var(--white,white);
+                border-radius: 50px;
                 transform-origin: center;
                 animation: 0.3s ease-in forwards;
                 animation-name: burger-open;
@@ -92,27 +92,27 @@ class Menu extends HTMLElement {
                 }
             }
             .burger-menu {
+                width: 30%;
                 position: absolute;
                 right: 0;
                 top: 1%;
                 bottom: 1%;
-                width: 30%;
+                overflow: hidden;
                 background-color: var(--primary-color,rgb(0, 56, 168));
-                filter: brightness(0.9);
                 border: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 border-width: 5px;
                 border-right: none;
                 border-radius: 50px 0 0  50px;
-                overflow: hidden;
-                z-index: 200;
+                filter: brightness(0.9);
                 transition: transform 0.3s ease-in;
                 transform: translateX(100%);
+                z-index: 200;
             }
             .burger-menu-header {
                 height: 4em;
                 background-color: var(--primary-color,rgb(0, 56, 168));
-                filter: brightness(0.8);
                 border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
+                filter: brightness(0.8);
             }
             .burger.opened .burger-menu {
                 transform: translateX(0);

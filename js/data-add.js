@@ -21,8 +21,8 @@ class DataAdd extends HTMLElement {
             }
             button {
                 background: none;
-                border: none;
                 color: inherit;
+                border: none;
                 cursor: pointer;
             }
             button:has( svg):hover {
@@ -48,8 +48,8 @@ class DataAdd extends HTMLElement {
                 border-radius: 10px;
             }
             label {
-                color: var(--tertiary-color,rgb(150, 156, 172));
                 margin-right: 1%;
+                color: var(--tertiary-color,rgb(150, 156, 172));
                 font-weight: bold;
             }
             main {
@@ -59,11 +59,11 @@ class DataAdd extends HTMLElement {
                 box-shadow: var(--sahdow,5px 5px 0px 0px rgba(0, 0, 0, 0.2))
             }
             header {
-                background-color: var(--primary-color, rgb(0, 56, 168));
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: space-between;
                 align-items: center;
-                flex-wrap: wrap;
+                background-color: var(--primary-color, rgb(0, 56, 168));
                 border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
             .tabs {
@@ -104,15 +104,15 @@ class DataAdd extends HTMLElement {
             .form-field input, .form-field textarea {
                 width: 95%;
                 height: 2rem;
-                background-color: var(--white,white);
-                color: var(--black,black);
                 margin-top: 2%;
                 padding: 1% 2%;
+                background-color: var(--white,white);
+                color: var(--black,black);
                 border: none;
                 border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 border-width: 5px;
                 border-radius: 5px 5px 0 0;
-                resize: vertical;
+                resize: none;
             }
             .invalid {
                 border-color: var(--red,rgb(153, 31, 24));
@@ -131,15 +131,15 @@ class DataAdd extends HTMLElement {
                 display: none;
             }
             .file-icon {
-                background-color: var(--tertiary-color,rgb(150, 156, 172));
-                color: var(--white,white);
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding: 1%;
                 margin-top: 1%;
-                cursor: pointer;
+                padding: 1%;
+                background-color: var(--tertiary-color,rgb(150, 156, 172));
+                color: var(--white,white);
                 border-radius: 5px;
+                cursor: pointer;
             }
             /* Animaciones */
             @keyframes shake {
@@ -159,8 +159,8 @@ class DataAdd extends HTMLElement {
             /*Media queries*/
             @media (max-width: 1000px) {
                 .form-field {
-                    flex: none;
                     width: 100%;
+                    flex: none;
                 }
             }
         </style>

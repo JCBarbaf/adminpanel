@@ -15,11 +15,11 @@ class Crud extends HTMLElement {
       <style>
         .crud {
             width: 95%;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             gap: 1%;
+            margin: 0 auto;
             padding-top: 2%;
         }
         .data-list {

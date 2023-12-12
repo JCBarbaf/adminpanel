@@ -16,26 +16,26 @@ class Filter extends HTMLElement {
           /*html*/`
           <style>
             .modal {
-                visibility: hidden;
-                background-color: rgba(0, 0, 0, 0.2);
                 position: fixed;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
-                z-index: 400;
+                visibility: hidden;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background-color: rgba(0, 0, 0, 0.2);
+                z-index: 400;
             }
             .modal.active {
                 visibility: visible;
             }
             .modal-content {
-                background-color: var(--secondary-color,rgb(94, 55, 81));
                 min-width: 60%;
-                border-radius: 20px;
                 overflow: hidden;
+                background-color: var(--secondary-color,rgb(94, 55, 81));
+                border-radius: 20px;
                 transform: scale(0);
                 transition: transform 0.1s ease-out;
             }
@@ -43,9 +43,9 @@ class Filter extends HTMLElement {
                 transform: scale(1);
             }
             .modal-content h3 {
-                background-color: var(--primary-color,rgb(0, 56, 168));
                 margin: 0;
                 padding: 1%;
+                background-color: var(--primary-color,rgb(0, 56, 168));
                 text-align: center;
             }
             .modal-content form {
@@ -57,11 +57,11 @@ class Filter extends HTMLElement {
                 padding: 2% 0;
             }
             button {
-                background-color: var(--tertiary-color,rgb(150, 156, 172));
                 padding: 1% 5%;
-                border-radius: 10px;
-                border: none;
+                background-color: var(--tertiary-color,rgb(150, 156, 172));
                 color: inherit;
+                border: none;
+                border-radius: 10px;
             }
             button:hover {
                 transform: scale(1.1);
@@ -83,15 +83,15 @@ class Filter extends HTMLElement {
             input,textarea {
                 width: 95%;
                 height: 2rem;
-                background-color: var(--white,white);
-                color: var(--black);
                 margin-top: 2%;
                 padding: 1% 2%;
+                background-color: var(--white,white);
+                color: var(--black);
                 border: none;
                 border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
                 border-width: 5px;
                 border-radius: 5px 5px 0 0;
-                resize: vertical;
+                resize: none;
             }
             .invalid {
                 border-color: var(--red,rgb(153, 31, 24));

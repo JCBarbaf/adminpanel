@@ -12,19 +12,19 @@
     --border: 3px solid rgba(0, 0, 0, 0.2);
 }
 body {
+    box-sizing: border-box;
+    overflow-x: hidden;
     background-color: var(--black,black);
     color: var(--white,white);
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    box-sizing: border-box;
-    overflow-x: hidden;
 }
 /* Concrertos */
 header {
-    background-color: var(--primary-color,rgb(0, 56, 168));
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 3%;
+    background-color: var(--primary-color,rgb(0, 56, 168));
     border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
 }
 header .logo {
