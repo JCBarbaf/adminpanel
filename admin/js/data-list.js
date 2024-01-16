@@ -61,7 +61,6 @@ class DataList extends HTMLElement {
                 justify-content: space-between;
                 align-items: center;
                 margin: 0;
-                <!-- padding: 0.5%; -->
                 padding: 2% 3% 1% 2%;
                 border-bottom: var(--border,3px solid rgba(0, 0, 0, 0.2));
             }
