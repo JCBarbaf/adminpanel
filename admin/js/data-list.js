@@ -1,18 +1,17 @@
 class DataList extends HTMLElement {
+  constructor () {
+    super()
+    this.shadow = this.attachShadow({ mode: 'open' })
+    this.title = this.getAttribute('title')
+  }
 
-    constructor() {
-        super()
-        this.shadow = this.attachShadow({ mode: 'open' })
-        this.title = this.getAttribute('title')
-    }
+  connectedCallback () {
+    this.render()
+  }
 
-    connectedCallback() {
-        this.render()
-    }
-
-    render() {
-        this.shadow.innerHTML =
-      /*html*/`
+  render () {
+    this.shadow.innerHTML =
+      /* html */`
         <style>
             svg {
                 width: 30px;
@@ -244,16 +243,16 @@ class DataList extends HTMLElement {
             </footer>
         </main>
       `
-        let dataList = this.shadow.querySelector('main');
-        dataList?.addEventListener('click', async (event) => {
-            if (event.target.closest('.delete-button')) {
-                console.log('hola');
-                document.dispatchEvent(new CustomEvent('showDeleteModal'));
-            }
-            if (event.target.closest('.filter-button')) {
-                document.dispatchEvent(new CustomEvent('showFilterModal'));
-            }
-        });
-    }
+    const dataList = this.shadow.querySelector('main')
+    dataList?.addEventListener('click', async (event) => {
+      if (event.target.closest('.delete-button')) {
+        console.log('hola')
+        document.dispatchEvent(new CustomEvent('showDeleteModal'))
+      }
+      if (event.target.closest('.filter-button')) {
+        document.dispatchEvent(new CustomEvent('showFilterModal'))
+      }
+    })
+  }
 }
-customElements.define('data-list-component', DataList);
+customElements.define('data-list-component', DataList)

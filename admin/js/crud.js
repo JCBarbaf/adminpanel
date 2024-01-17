@@ -1,38 +1,37 @@
 class Crud extends HTMLElement {
+  constructor () {
+    super()
+    this.shadow = this.attachShadow({ mode: 'open' })
+  }
 
-    constructor () {
-      super()
-      this.shadow = this.attachShadow({ mode: 'open' })
-    }
-  
-    connectedCallback () {
-      this.render()
-    }
-  
-    render () {
-      this.shadow.innerHTML =
-      /*html*/`
+  connectedCallback () {
+    this.render()
+  }
+
+  render () {
+    this.shadow.innerHTML =
+      /* html */`
       <style>
         .crud {
-            width: 95%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1%;
-            margin: 0 auto;
-            padding-top: 2%;
+          width: 95%;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 1%;
+          margin: 0 auto;
+          padding-top: 2%;
         }
         .data-list {
-            flex: 1;
+          flex: 1;
         }
         .data-add {
-            flex: 2;
+          flex: 2;
         }
         /*Media queries*/
         @media (max-width: 1000px) {
-            .data-add {
-                flex: 1;
-            }
+          .data-add {
+              flex: 1;
+          }
         }
       </style>
       <div class="crud">
@@ -44,7 +43,7 @@ class Crud extends HTMLElement {
           </div>
       </div>
       `
-    }
   }
-  
-  customElements.define('crud-component', Crud);
+}
+
+customElements.define('crud-component', Crud)

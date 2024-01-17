@@ -1,20 +1,19 @@
 class Delete extends HTMLElement {
+  constructor () {
+    super()
+    this.shadow = this.attachShadow({ mode: 'open' })
+  }
 
-    constructor() {
-        super()
-        this.shadow = this.attachShadow({ mode: 'open' })
-    }
+  connectedCallback () {
+    this.render()
+    document.addEventListener('showDeleteModal', event => {
+      this.openModal()
+    })
+  }
 
-    connectedCallback() {
-        this.render()
-        document.addEventListener('showDeleteModal', (event => {
-            this.openModal();
-        }));
-    }
-
-    render() {
-        this.shadow.innerHTML =
-      /*html*/`
+  render () {
+    this.shadow.innerHTML =
+      /* html */`
         <style>
             .modal {
                 position: fixed;
@@ -83,14 +82,15 @@ class Delete extends HTMLElement {
             </div>
         </div>
       `
-    }
-    openModal() {
-        let deleteModal = this.shadow.querySelector('.delete.modal');
-        deleteModal.classList.add('active');
-        deleteModal.querySelector('.close').addEventListener('click',() => {
-            deleteModal.classList.remove('active');
-        });
-    }
+  }
+
+  openModal () {
+    const deleteModal = this.shadow.querySelector('.delete.modal')
+    deleteModal.classList.add('active')
+    deleteModal.querySelector('.close').addEventListener('click', () => {
+      deleteModal.classList.remove('active')
+    })
+  }
 }
 
-customElements.define('delete-component', Delete);
+customElements.define('delete-component', Delete)

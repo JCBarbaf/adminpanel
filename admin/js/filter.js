@@ -1,19 +1,19 @@
 class Filter extends HTMLElement {
-    constructor() {
-        super()
-        this.shadow = this.attachShadow({ mode: 'open' })
-    }
+  constructor () {
+    super()
+    this.shadow = this.attachShadow({ mode: 'open' })
+  }
 
-    connectedCallback() {
-        this.render()
-        document.addEventListener('showFilterModal', (event => {
-            this.openModal();
-        }));
-    }
+  connectedCallback () {
+    this.render()
+    document.addEventListener('showFilterModal', event => {
+      this.openModal()
+    })
+  }
 
-    render() {
-        this.shadow.innerHTML =
-          /*html*/`
+  render () {
+    this.shadow.innerHTML =
+      /* html */`
           <style>
             .modal {
                 position: fixed;
@@ -130,13 +130,14 @@ class Filter extends HTMLElement {
             </div>
         </div>
         `
-    }
-    openModal(){
-        let filterModal = this.shadow.querySelector('.filter.modal');
-        filterModal.classList.add('active');
-        filterModal.querySelector('.close').addEventListener('click',() => {
-            filterModal.classList.remove('active');
-        });
-    };
+  }
+
+  openModal () {
+    const filterModal = this.shadow.querySelector('.filter.modal')
+    filterModal.classList.add('active')
+    filterModal.querySelector('.close').addEventListener('click', () => {
+      filterModal.classList.remove('active')
+    })
+  };
 }
-customElements.define('filter-component', Filter);
+customElements.define('filter-component', Filter)
