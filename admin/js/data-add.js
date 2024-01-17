@@ -248,7 +248,7 @@ class DataAdd extends HTMLElement {
       console.log('hola')
       const input = event.target.closest('input')
       if (input.dataset.minlength) {
-        if (input.value.length == 0) {
+        if (input.value.length === 0) {
           input.classList.remove('valid')
           input.classList.remove('invalid')
         } else if (input.value.length < input.dataset.minlength) {
