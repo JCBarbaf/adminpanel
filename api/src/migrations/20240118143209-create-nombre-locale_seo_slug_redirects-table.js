@@ -1,20 +1,27 @@
 'use strict';
 
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('emails', {
+    await queryInterface.createTable('locale_seo_slug_redirects', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      subject: {
+      localeSeoSlugId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'locale_seo_slugs',
+          key: 'id'
+        }
+      },
+      languageAlias: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      path: {
+      oldUrl: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -34,6 +41,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('emails')
+    await queryInterface.dropTable('locale_seo_slug_redirects')
   }
 }

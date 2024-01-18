@@ -215,7 +215,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-19-IMAGES - FK:✓ - ConTo:18 - Created:
+19-IMAGES - FK:✓ - ConTo:18 - Created:T
 
   id (INT) (PK, NN, AI)
   entity (VARCHAR) (NN)
@@ -223,7 +223,7 @@
   --imageConfigurationId (INT) (NN)
   name (VARCHAR) (NN)
   originalFilename (VARCHAR) (NN)
-  resisedFilename (VARCHAR) (NN)
+  resizedFilename (VARCHAR) (NN)
   title (VARCHAR) (NN)
   alt (VARCHAR) (NN)
   languageAlias (VARCHAR) (NN)
@@ -411,7 +411,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-33-SENT_EMAILS - FK:✓ - ConTo:08-32 - Created:
+33-SENT_EMAILS - FK:✓ - ConTo:08-32 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) (NN)
@@ -420,7 +420,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-34-EMAIL_ERRORS * - FK:✓ - ConTo:08-32 - Created:
+34-EMAIL_ERRORS * - FK:✓ - ConTo:08-32 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) (NN)
@@ -448,11 +448,11 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-36-LOCALE_SEO_SLUGS - FK:✓ - ConTo:35 - Created:
+36-LOCALE_SEO_SLUGS - FK:✓ - ConTo:35 - Created:T
 
   id (INT) (PK, NN, AI)
   --localeSeoId (INT) (NN)   
-  -?parentSlugId (INT) (NN) null
+  parentSlug (VARCHAR) (NN)
   languageAlias (VARCHAR) (NN) 
   relParent (VARCHAR) 
   slug (VARCHAR) (NN) toalla-portuguesa-especial
@@ -464,7 +464,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-37-LOCALE_SEO_REDIRECTS - FK:✓ - ConTo:35 - Created:
+37-LOCALE_SEO_REDIRECTS - FK:✓ - ConTo:35 - Created:T
 
   id (INT) (PK, NN, AI)
   --localeSeoId (INT) (NN)
@@ -474,7 +474,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-38-LOCALE_SEO_SLUG_REDIRECTS - FK:✓ - ConTo:36 - Created:
+38-LOCALE_SEO_SLUG_REDIRECTS - FK:✓ - ConTo:36 - Created:T
 
   id (INT) (PK, NN, AI)
   --localeSeoSlugId (INT) (NN)
@@ -486,7 +486,7 @@
 
 ---------------------------------------------------------------------------------------------
 
-39-FINGERPRINTS - FK:✓ - ConTo:08-03 - Created:
+39-FINGERPRINTS - FK:✓ - ConTo:08-03 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) 
