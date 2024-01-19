@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('customer_trackings', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -29,7 +29,7 @@ module.exports = {
           key: 'id'
         }
       },
-      localeSeoSlug: {
+      localeSeoSlugId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -65,10 +65,19 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('customer_trackings', ['customerId'], {
+      name: 'customer_trackings_customerId_fk'
+    })
+    await queryInterface.addIndex('customer_trackings', ['localeSeoId'], {
+      name: 'customer_trackings_localeSeoId_fk'
+    })
+    await queryInterface.addIndex('customer_trackings', ['localeSeoSlugId'], {
+      name: 'customer_trackings_localeSeoSlugId_fk'
+    })
   },
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('customer_trackings')
   }
 }

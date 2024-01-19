@@ -58,6 +58,15 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('menu_items', ['menuId'], {
+      name: 'menu_items_menuId_fk'
+    })
+    await queryInterface.addIndex('menu_items', ['localeSeoId'], {
+      name: 'menu_items_localeSeoId_fk'
+    })
+    await queryInterface.addIndex('menu_items', ['localeSeoSlugId'], {
+      name: 'menu_items_localeSeoSlugId_fk'
+    })
   },
 
 

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('email_error', {
+    await queryInterface.createTable('sent_emails', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -25,10 +25,6 @@ module.exports = {
           key: 'id'
         }
       },
-      error: {
-        type: Sequelize.TEXT,
-        allowNull: false
-      },
      	createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -41,10 +37,16 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('sent_emails', ['customerId'], {
+      name: 'sent_emails_customerId_fk'
+    })
+    await queryInterface.addIndex('sent_emails', ['emailId'], {
+      name: 'sent_emails_emailId_fk'
+    })
   },
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('email_error')
+    await queryInterface.dropTable('sent_emails')
   }
 }

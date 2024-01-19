@@ -80,6 +80,15 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('companies', ['countryId'], {
+      name: 'companies_countryId_fk'
+    })
+    await queryInterface.addIndex('companies', ['cityId'], {
+      name: 'companies_cityId_fk'
+    })
+    await queryInterface.addIndex('companies', ['dialCodeId'], {
+      name: 'companies_dialCodeId_fk'
+    })
   },
 
 

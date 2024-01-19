@@ -2,46 +2,22 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('images', {
+    await queryInterface.createTable('locale_seo_slugs', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      entity: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      entityId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      imageConfigurationId: {
+      localeSeoId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'image_configurations',
+          model: 'locale_seos',
           key: 'id'
         }
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      originalFilename: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      resizedFilename: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      title: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      alt: {
+      parentSlug: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -49,13 +25,26 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      mediaQuery: {
+      relParent: {
+        type: Sequelize.STRING
+      },
+      slug: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      latencyMs: {
-        type: Sequelize.INTEGER,
+      key: {
+        type: Sequelize.STRING,
+      },
+      title: {
+        type: Sequelize.STRING,
         allowNull: false
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      redirection: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0
       },
      	createdAt: {
         type: Sequelize.DATE,
@@ -69,10 +58,13 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('locale_seo_slugs', ['localeSeoId'], {
+      name: 'locale_seo_slugs_localeSeoId_fk'
+    })
   },
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('images')
+    await queryInterface.dropTable('locale_seo_slugs')
   }
 }

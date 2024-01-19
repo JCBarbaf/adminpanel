@@ -41,6 +41,9 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('admin_trackings', ['userId'], {
+      name: 'admin_trackings_userId_fk'
+    })
   },
 
 

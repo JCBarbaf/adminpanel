@@ -40,6 +40,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('carts', ['customerId'], {
+      name: 'carts_customerId_fk'
+    })
+    await queryInterface.addIndex('carts', ['fingerprintId'], {
+      name: 'carts_fingerprintId_fk'
+    })
   },
 
 

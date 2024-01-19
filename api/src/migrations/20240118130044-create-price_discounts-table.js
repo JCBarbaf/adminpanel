@@ -50,6 +50,9 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('price_discounts', ['priceId'], {
+      name: 'price_discounts_priceId_fk'
+    })
   },
 
 

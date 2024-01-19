@@ -2,49 +2,28 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('locale_seo_slugs', {
+    await queryInterface.createTable('locale_seo_slug_redirects', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      localeSeoId: {
+      localeSeoSlugId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locale_seos',
+          model: 'locale_seo_slugs',
           key: 'id'
         }
-      },
-      parentSlug: {
-        type: Sequelize.STRING,
-        allowNull: false
       },
       languageAlias: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      relParent: {
-        type: Sequelize.STRING
-      },
-      slug: {
+      oldUrl: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      key: {
-        type: Sequelize.STRING,
-      },
-      title: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      description: {
-        type: Sequelize.STRING,
-      },
-      redirection: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: 0
       },
      	createdAt: {
         type: Sequelize.DATE,
@@ -58,10 +37,13 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
+    await queryInterface.addIndex('locale_seo_slug_redirects', ['localeSeoSlugId'], {
+      name: 'locale_seo_slugs_redirects_localeSeoSlugId_fk'
+    })
   },
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('locale_seo_slugs')
+    await queryInterface.dropTable('locale_seo_slug_redirects')
   }
 }
