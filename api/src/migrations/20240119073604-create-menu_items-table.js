@@ -2,24 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('menu_items', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      customerId: {
+      menuId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'customers',
+          model: 'menus',
           key: 'id'
         }
-      },
-      fingerprint: {
-        type: Sequelize.STRING,
-        allowNull: false
       },
       localeSeoId: {
         type: Sequelize.INTEGER,
@@ -29,7 +25,7 @@ module.exports = {
           key: 'id'
         }
       },
-      localeSeoSlug: {
+      localeSeoSlugId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -37,21 +33,18 @@ module.exports = {
           key: 'id'
         }
       },
-      path: {
+      parent: {
+        type: Sequelize.INTEGER,
+      },
+      customUrl: {
         type: Sequelize.STRING,
-        allowNull: false
       },
-      eventTime: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
+      private: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: 0
       },
-      eventName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      event: {
-        type: Sequelize.JSON,
-        allowNull: false
+      order: {
+        type: Sequelize.INTEGER,
       },
      	createdAt: {
         type: Sequelize.DATE,
@@ -69,6 +62,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('menu_items')
   }
 }

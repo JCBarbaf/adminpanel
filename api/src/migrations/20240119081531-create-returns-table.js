@@ -2,12 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('returns', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+      },
+      saleId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'sales',
+          key: 'id'
+        }
       },
       customerId: {
         type: Sequelize.INTEGER,
@@ -17,40 +25,36 @@ module.exports = {
           key: 'id'
         }
       },
-      fingerprint: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      localeSeoId: {
+      paymentMethodId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locale_seos',
+          model: 'payment_methods',
           key: 'id'
         }
       },
-      localeSeoSlug: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'locale_seo_slugs',
-          key: 'id'
-        }
-      },
-      path: {
+      reference: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      eventTime: {
-        type: Sequelize.DOUBLE,
+      totalPrice: {
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
-      eventName: {
-        type: Sequelize.STRING,
+      totalBasePrice: {
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
-      event: {
-        type: Sequelize.JSON,
+      totalTaxPrice: {
+        type: Sequelize.DECIMAL,
+        allowNull: false
+      },
+      returnDate: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      returnTime: {
+        type: Sequelize.TIME,
         allowNull: false
       },
      	createdAt: {
@@ -69,6 +73,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('returns')
   }
 }

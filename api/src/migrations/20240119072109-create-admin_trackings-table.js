@@ -2,55 +2,31 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('admin_trackings', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
       },
-      customerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'customers',
-          key: 'id'
-        }
-      },
-      fingerprint: {
+      entity: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      localeSeoId: {
+      entityId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locale_seos',
+          model: 'users',
           key: 'id'
         }
       },
-      localeSeoSlug: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'locale_seo_slugs',
-          key: 'id'
-        }
-      },
-      path: {
+      action: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      eventTime: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
-      },
-      eventName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      event: {
-        type: Sequelize.JSON,
         allowNull: false
       },
      	createdAt: {
@@ -69,6 +45,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('admin_trackings')
   }
 }

@@ -118,7 +118,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-11-MENU_ITEMS - FK:✓ - ConTo:10-35-36 - Created:
+11-MENU_ITEMS - FK:✓ - ConTo:10-35-36 - Created:T
 
   id (INT) (PK, NN, AI)
   --menuId (INT) (NN)
@@ -144,7 +144,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-13-PRODUCT_CATEGORY_RELATIONS - FK:✓ - ConTo:12-14 - Created:
+13-PRODUCT_CATEGORY_RELATIONS - FK:✓ - ConTo:12-14 - Created:T
 
   id  (INT) (NN)
   --productCategoryId (INT) (NN)
@@ -259,7 +259,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-22-CARTS - FK:✓ - ConTo:08-39 - Created:
+22-CARTS - FK:✓ - ConTo:08-39 - Created:T
 
   id (INT) (PK, NN, AI)
   uuid (UUID) (NN)
@@ -269,16 +269,15 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-23-CART_DETAILS - FK:✓ - ConTo:22-14-20-15-16-05 - Created:
+23-CART_DETAILS - FK:✓ - ConTo:22-14-20-15-16-05 - Created:T
 
   id (INT) (PK, NN, AI)
   --cartId (INT) (NN)
   --productId (INT) (NN)
   --localeId (INT) (NN)
   --priceId (INT) (NN)
-  --priceDiscountId (INT) 
-  --taxId (INT) (NN)
   --priceDiscountId (INT) (NN)
+  --taxId (INT) (NN)
   basePrice (DECIMAL) (NN)
   taxPrice (DECIMAL) (NN)
   quantity (INT) (NN)
@@ -286,7 +285,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-24-SALES - FK:✓ - ConTo:22-08-21-17 - Created:
+24-SALES - FK:✓ - ConTo:22-08-21-17 - Created:T
 
   id (INT) (PK, NN, AI)
   --cartId (INT) (NN)
@@ -303,16 +302,15 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-25-SALE_DETAILS - FK:✓ - ConTo:24-14-20-15-16-05 - Created:
+25-SALE_DETAILS - FK:✓ - ConTo:24-14-20-15-16-05 - Created:T
 
   id (INT) (PK, NN, AI)
   --saleId (INT) (NN)
   --productId (INT) (NN)
   --localeId (INT) (NN)
   --priceId (INT) (NN)
-  --priceDiscountId (INT)
-  --taxId (INT) (NN)
   --priceDiscountId (INT) (NN)
+  --taxId (INT) (NN)
   basePrice (DECIMAL) (NN)
   taxPrice (DECIMAL) (NN)
   quantity (INT) (NN)
@@ -320,7 +318,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-26-SALE_ERRORS - FK:✓ - ConTo:21-08-22 - Created:
+26-SALE_ERRORS - FK:✓ - ConTo:21-08-22 - Created:T
 
   id (INT) (PK, NN, AI)
   --paymentMethodId (INT) (NN)
@@ -332,7 +330,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-27-RETURNS - FK:✓ - ConTo:24-08-21 - Created:
+27-RETURNS - FK:✓ - ConTo:24-08-21 - Created:T
 
   id (INT) (PK, NN, AI)
   --saleId (INT) (NN)
@@ -348,7 +346,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-28-RETURN_DETAILS - FK:✓ - ConTo:27-14-20-15-05-16 - Created:
+28-RETURN_DETAILS - FK:✓ - ConTo:27-14-20-15-05-16 - Created:T
 
   id (INT) (PK, NN, AI)
   --returnId (INT) (NN)
@@ -364,7 +362,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-29-RETURN_ERRORS - FK:✓ - ConTo:21-08-24 - Created:
+29-RETURN_ERRORS - FK:✓ - ConTo:21-08-24 - Created:T
 
   id (INT) (PK, NN, AI)
   --paymentMethodId (INT) (NN)
@@ -376,7 +374,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-30-TICKETS - FK:✓ - ConTo:08-24-27 - Created:
+30-TICKETS - FK:✓ - ConTo:08-24-27 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) (NN)
@@ -388,7 +386,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-31-INVOICES - FK:✓ - ConTo:08-24-27 - Created:
+31-INVOICES - FK:✓ - ConTo:08-24-27 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) (NN)
@@ -502,7 +500,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-40-CUSTOMER_TRACKINGS - FK:✓ - ConTo:08-35-36 - Created:
+40-CUSTOMER_TRACKINGS - FK:✓ - ConTo:08-35-36 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT)
@@ -517,7 +515,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-41-ADMIN_TRACKINGS - FK:✓ - ConTo:07 - Created:
+41-ADMIN_TRACKINGS - FK:✓ - ConTo:07 - Created:T
 
   id (INT) (PK, NN, AI)
   entity (VARCHAR)(NN)
@@ -528,7 +526,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-42-PAGE_TRACKINGS - FK:✓ - ConTo:08-35-36 - Created:
+42-PAGE_TRACKINGS - FK:✓ - ConTo:08-35-36 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) 
@@ -545,7 +543,7 @@
   updatedAt (DATETIME) (NN)
   deletedAt (DATETIME)
 
-43-API_TRACKINGS - FK:✓ - ConTo:08 - Created:
+43-API_TRACKINGS - FK:✓ - ConTo:08 - Created:T
 
   id (INT) (PK, NN, AI)
   --customerId (INT) 

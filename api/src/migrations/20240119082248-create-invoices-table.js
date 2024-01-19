@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('invoices', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -17,40 +17,26 @@ module.exports = {
           key: 'id'
         }
       },
-      fingerprint: {
+      saleId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'sales',
+          key: 'id'
+        }
+      },
+      returnId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'returns',
+          key: 'id'
+        }
+      },
+      reference: {
         type: Sequelize.STRING,
         allowNull: false
-      },
-      localeSeoId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'locale_seos',
-          key: 'id'
-        }
-      },
-      localeSeoSlug: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'locale_seo_slugs',
-          key: 'id'
-        }
       },
       path: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      eventTime: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
-      },
-      eventName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      event: {
-        type: Sequelize.JSON,
         allowNull: false
       },
      	createdAt: {
@@ -69,6 +55,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('invoices')
   }
 }

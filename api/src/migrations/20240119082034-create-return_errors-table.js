@@ -2,12 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('return_errors', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+      },
+      paymentMethodId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'payment_methods',
+          key: 'id'
+        }
       },
       customerId: {
         type: Sequelize.INTEGER,
@@ -17,41 +25,20 @@ module.exports = {
           key: 'id'
         }
       },
-      fingerprint: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      localeSeoId: {
+      saleId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locale_seos',
+          model: 'sales',
           key: 'id'
         }
       },
-      localeSeoSlug: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'locale_seo_slugs',
-          key: 'id'
-        }
-      },
-      path: {
+      errorCode: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      eventTime: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
-      },
-      eventName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      event: {
-        type: Sequelize.JSON,
-        allowNull: false
+      errorMessage: {
+        type: Sequelize.TEXT,
       },
      	createdAt: {
         type: Sequelize.DATE,
@@ -69,6 +56,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('return_errors')
   }
 }

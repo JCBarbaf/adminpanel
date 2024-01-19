@@ -2,12 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('customer_trakings', {
+    await queryInterface.createTable('sales', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+      },
+      cartId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'carts',
+          key: 'id'
+        }
       },
       customerId: {
         type: Sequelize.INTEGER,
@@ -17,40 +25,45 @@ module.exports = {
           key: 'id'
         }
       },
-      fingerprint: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      localeSeoId: {
+      paymentMethodId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locale_seos',
+          model: 'payment_methods',
           key: 'id'
         }
       },
-      localeSeoSlug: {
+      couponId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'locale_seo_slugs',
+          model: 'coupons',
           key: 'id'
         }
       },
-      path: {
+      reference: {
         type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+      totalPrice: {
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
-      eventTime: {
-        type: Sequelize.DOUBLE,
+      totalBasePrice: {
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
-      eventName: {
-        type: Sequelize.STRING,
+      totalTaxPrice: {
+        type: Sequelize.DECIMAL,
         allowNull: false
       },
-      event: {
-        type: Sequelize.JSON,
+      saleDate: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      saleTime: {
+        type: Sequelize.TIME,
         allowNull: false
       },
      	createdAt: {
@@ -69,6 +82,6 @@ module.exports = {
 
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('customer_trakings')
+    await queryInterface.dropTable('sales')
   }
 }
