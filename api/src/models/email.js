@@ -48,7 +48,7 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Email.associate = function (models) {
-
+    Email.hasMany(models.Email, { as: 'emails', foreignKey: 'emailId' })
   }
 
   return Email

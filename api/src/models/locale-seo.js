@@ -74,6 +74,8 @@ module.exports = function (sequelize, DataTypes) {
 
   LocaleSeo.associate = function (models) {
     LocaleSeo.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'localeSeoId' })
+    LocaleSeo.hasMany(models.LocaleSeoRedirect, { as: 'localeSeoRedirects', foreignKey: 'localeSeoId' })
+    LocaleSeo.hasMany(models.LocaleSeoSlug, { as: 'localeSeoSlugs', foreignKey: 'localeSeoId' })
   }
 
   return LocaleSeo

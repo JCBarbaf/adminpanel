@@ -108,6 +108,7 @@ module.exports = function (sequelize, DataTypes) {
     Sale.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
     Sale.belongsTo(models.PaymentMethod, { as: 'paymentMethod', foreignKey: 'paymentMethodId' })
     Sale.belongsTo(models.Coupon, { as: 'coupon', foreignKey: 'couponId' })
+    Sale.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'saleId' })
   }
 
   return Sale

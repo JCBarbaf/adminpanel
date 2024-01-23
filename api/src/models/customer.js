@@ -116,6 +116,9 @@ module.exports = function (sequelize, DataTypes) {
     Customer.hasMany(models.ApiTracking, { as: 'apiTrackings', foreignKey: 'customerId' })
     Customer.hasMany(models.Cart, { as: 'carts', foreignKey: 'customerId' })
     Customer.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'customerId' })
+    Customer.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'customerId' })
+    Customer.hasMany(models.Fingerprint, { as: 'fingerprints', foreignKey: 'customerId' })
+    Customer.hasMany(models.Invoice, { as: 'invoices', foreignKey: 'customerId' })
   }
 
   return Customer

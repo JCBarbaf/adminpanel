@@ -56,7 +56,7 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   LocaleSeoSlugRedirect.associate = function (models) {
-    AdminTracking.belongsTo(models.LocaleSeoSlug, { as: 'localeSeoSlug', foreignKey: 'localeSeoSlugId' })
+    LocaleSeoSlugRedirect.belongsTo(models.LocaleSeoSlug, { as: 'localeSeoSlug', foreignKey: 'localeSeoSlugId' })
   }
 
   return LocaleSeoSlugRedirect
