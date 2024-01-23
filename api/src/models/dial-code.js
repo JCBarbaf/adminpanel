@@ -9,8 +9,6 @@ module.exports = function (sequelize, DataTypes) {
     countryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
     },
     dialCode: {
       type: DataTypes.STRING,
@@ -45,12 +43,22 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'dial_codes_countryId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'countryId' }
+        ]
       }
     ]
   })
 
   DialCode.associate = function (models) {
+    DialCode.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
 
+    DialCode.hasMany(models.Company, { as: 'companies', foreignKey: 'dialCodeId' })
+    DialCode.hasMany(models.Customer, { as: 'customers', foreignKey: 'dialCodeId' })
   }
 
   return DialCode

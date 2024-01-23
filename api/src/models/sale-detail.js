@@ -9,37 +9,25 @@ module.exports = function (sequelize, DataTypes) {
     saleId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     localeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     priceId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     priceDiscountId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     taxId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     productName: {
       type: DataTypes.STRING,
@@ -86,12 +74,59 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'sale_details_saleId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'saleId' }
+        ]
+      },
+      {
+        name: 'sale_details_productId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'productId' }
+        ]
+      },
+      {
+        name: 'sale_details_localeId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeId' }
+        ]
+      },
+      {
+        name: 'sale_details_priceId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'priceId' }
+        ]
+      },
+      {
+        name: 'sale_details_priceDiscountId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'priceDiscountId' }
+        ]
+      },
+      {
+        name: 'sale_details_taxId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'taxId' }
+        ]
       }
     ]
   })
 
   SaleDetail.associate = function (models) {
-
+    SaleDetail.belongsTo(models.Sale, { as: 'sale', foreignKey: 'saleId' })
+    SaleDetail.belongsTo(models.Product, { as: 'product', foreignKey: 'productId' })
+    SaleDetail.belongsTo(models.Locale, { as: 'locale', foreignKey: 'localeId' })
+    SaleDetail.belongsTo(models.Price, { as: 'price', foreignKey: 'priceId' })
+    SaleDetail.belongsTo(models.PriceDiscount, { as: 'priceDiscount', foreignKey: 'priceDiscountId' })
+    SaleDetail.belongsTo(models.Tax, { as: 'tax', foreignKey: 'taxId' })
   }
 
   return SaleDetail

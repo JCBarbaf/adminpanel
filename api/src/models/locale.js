@@ -55,12 +55,22 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'locales_languageAlias_entity_entityId_key_index',
+        using: 'BTREE',
+        fields: [
+          { name: 'languageAlias' },
+          { name: 'entity' },
+          { name: 'entityId' },
+          { name: 'key' }
+        ]
       }
     ]
   })
 
   Locale.associate = function (models) {
-
+    Locale.hasMany(models.CartDetail, { as: 'cartDetails', foreignKey: 'localeId' })
   }
 
   return Locale

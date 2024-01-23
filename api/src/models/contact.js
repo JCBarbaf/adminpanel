@@ -8,8 +8,6 @@ module.exports = function (sequelize, DataTypes) {
     },
     fingerprintId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     name: {
       type: DataTypes.STRING,
@@ -56,12 +54,27 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'contacts_fingerprintId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'fingerprintId' }
+        ]
+      },
+      {
+        name: 'contacts_email_index',
+        using: 'BTREE',
+        fields: [
+          { name: 'email' }
+        ]
       }
     ]
   })
 
   Contact.associate = function (models) {
-
+    Contact.belongsTo(models.Fingerprint, { as: 'fingerprint', foreignKey: 'fingerprintId' })
+    
   }
 
   return Contact

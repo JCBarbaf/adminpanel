@@ -9,14 +9,10 @@ module.exports = function (sequelize, DataTypes) {
     customerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     emailId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     error: {
       type: DataTypes.TEXT,
@@ -51,12 +47,27 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'email_errors_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'email_errors_emailId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'emailId' }
+        ]
       }
     ]
   })
 
   EmailError.associate = function (models) {
-
+    EmailError.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
+    EmailError.belongsTo(models.Email, { as: 'email', foreignKey: 'emailId' })
   }
 
   return EmailError

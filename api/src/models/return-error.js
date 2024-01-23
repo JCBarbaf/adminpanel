@@ -9,20 +9,14 @@ module.exports = function (sequelize, DataTypes) {
     customerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     returnId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     paymentMethodId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     errorCode: {
       type: DataTypes.INTEGER,
@@ -60,12 +54,35 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'return_errors_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'return_errors_returnId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'returnId' }
+        ]
+      },
+      {
+        name: 'return_errors_paymentMethodId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'paymentMethodId' }
+        ]
       }
     ]
   })
 
   ReturnError.associate = function (models) {
-
+    ReturnError.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
+    ReturnError.belongsTo(models.Return, { as: 'return', foreignKey: 'returnId' })
+    ReturnError.belongsTo(models.PaymentMethod, { as: 'paymentMethod', foreignKey: 'paymentMethodId' })
   }
 
   return ReturnError

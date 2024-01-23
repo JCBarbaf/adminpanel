@@ -9,20 +9,14 @@ module.exports = function (sequelize, DataTypes) {
     countryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     cityId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     dialCodeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     fiscalName: {
       type: DataTypes.STRING,
@@ -88,12 +82,37 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
-      }
+      },
+      {
+        name: 'companies_countryId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'countryId' }
+        ]
+      },
+      {
+        name: 'companies_cityId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'cityId' }
+        ]
+      },
+      {
+        name: 'companies_dialCodeId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'dialCodeId' }
+        ]
+      },
+      
     ]
   })
 
   Company.associate = function (models) {
-
+    Company.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
+    Company.belongsTo(models.City, { as: 'city', foreignKey: 'cityId' })
+    Company.belongsTo(models.DialCode, { as: 'dialCode', foreignKey: 'dialCodeId' })
+    
   }
 
   return Company

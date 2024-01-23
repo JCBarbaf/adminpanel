@@ -1,19 +1,26 @@
 module.exports = function (sequelize, DataTypes) {
-  const LocaleSeoSlugRedirect = sequelize.define('LocaleSeoSlugRedirect', {
+  const AdminTracking = sequelize.define('AdminTracking', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
-    localeSeoSlugId: {
-      type: DataTypes.INTEGER,
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
     },
-    languageAlias: {
-      type: DataTypes.STRING
+    entity: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
-    oldUrl: {
-      type: DataTypes.STRING
+    entityId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    action: {
+      type: Sequelize.STRING,
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -33,7 +40,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'locale_seo_slug_redirects',
+    tableName: 'api_trackings',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -46,18 +53,26 @@ module.exports = function (sequelize, DataTypes) {
         ]
       },
       {
-        name: 'locale_seo_slug_redirects_localeSeoId_fk',
+        name: 'admin_trackings_userId_fk',
         using: 'BTREE',
         fields: [
-          { name: 'localeSeoSlugId' }
+          { name: 'userId' }
+        ]
+      },
+      {
+        name: 'admin_trackings_entity_entityId_index',
+        using: 'BTREE',
+        fields: [
+          { name: 'entity' },
+          { name: 'entityId' }
         ]
       }
     ]
   })
 
-  LocaleSeoSlugRedirect.associate = function (models) {
-    AdminTracking.belongsTo(models.LocaleSeoSlug, { as: 'localeSeoSlug', foreignKey: 'localeSeoSlugId' })
+  AdminTracking.associate = function (models) {
+    AdminTracking.belongsTo(models.User, { as: 'user', foreignKey: 'userId' })
   }
 
-  return LocaleSeoSlugRedirect
+  return AdminTracking
 }

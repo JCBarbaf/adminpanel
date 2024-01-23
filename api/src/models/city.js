@@ -9,8 +9,6 @@ module.exports = function (sequelize, DataTypes) {
     countryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
     },
     name: {
       type: DataTypes.STRING,
@@ -45,12 +43,22 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
-      }
+      },
+      {
+        name: 'cities_countryId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'countryId' }
+        ]
+      },
     ]
   })
 
   City.associate = function (models) {
-
+    City.belongsTo(models.Country, { as: 'country', foreignKey: 'countryId' })
+    
+    City.hasMany(models.Company, { as: 'companies', foreignKey: 'cityId' })
+    City.hasMany(models.Customer, { as: 'customers', foreignKey: 'cityId' })
   }
 
   return City

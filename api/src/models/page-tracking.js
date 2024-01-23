@@ -8,23 +8,15 @@ module.exports = function (sequelize, DataTypes) {
     },
     customerId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     fingerprintId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     localeSeoId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     localeSeoSlugId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     path: {
       type: DataTypes.STRING,
@@ -79,12 +71,43 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'page_trackings_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'page_trackings_fingerprintId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'fingerprintId' }
+        ]
+      },
+      {
+        name: 'page_trackings_localeSeoId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeSeoId' }
+        ]
+      },
+      {
+        name: 'page_trackings_localeSeoSlugId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeSeoSlugId' }
+        ]
       }
     ]
   })
 
   PageTracking.associate = function (models) {
-
+    PageTracking.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
+    PageTracking.belongsTo(models.Fingerprint, { as: 'fingerprint', foreignKey: 'fingerprintId' })
+    PageTracking.belongsTo(models.LocaleSeo, { as: 'localeSeo', foreignKey: 'localeSeoIdlocaleSeoId' })
+    PageTracking.belongsTo(models.LocaleSeoSlug, { as: 'localeSeoSlug', foreignKey: 'localeSeoSlugId' })
   }
 
   return PageTracking

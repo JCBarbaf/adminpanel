@@ -9,8 +9,6 @@ module.exports = function (sequelize, DataTypes) {
     imageConfigurationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     entityId: {
       type: DataTypes.INTEGER
@@ -75,12 +73,28 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'images_imageConfigurationId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'imageConfigurationId' }
+        ]
+      },
+      {
+        name: 'images_entityId_entity_mediaQuery_index',
+        using: 'BTREE',
+        fields: [
+          { name: 'entityId' },
+          { name: 'entity' },
+          { name: 'mediaQuery' }
+        ]
       }
     ]
   })
 
   Image.associate = function (models) {
-
+    Image.belongsTo(models.ImageConfiguration, { as: 'imageConfiguration', foreignKey: 'imageConfigurationId' })
   }
 
   return Image

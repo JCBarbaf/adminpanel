@@ -9,14 +9,10 @@ module.exports = function (sequelize, DataTypes) {
     productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
     },
     productCategoryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -47,12 +43,27 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'product_category_relations_productId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'productId' }
+        ]
+      },
+      {
+        name: 'product_category_relations_productCategoryId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'productCategoryId' }
+        ]
       }
     ]
   })
 
   ProductCategoryRelation.associate = function (models) {
-
+    ProductCategoryRelation.belongsTo(models.Product, { as: 'product', foreignKey: 'productId' })
+    ProductCategoryRelation.belongsTo(models.ProductCategory, { as: 'productCategory', foreignKey: 'productCategoryId' })
   }
 
   return ProductCategoryRelation

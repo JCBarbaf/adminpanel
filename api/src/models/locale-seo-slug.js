@@ -9,8 +9,6 @@ module.exports = function (sequelize, DataTypes) {
     localeSeoId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     languageAlias: {
       type: DataTypes.STRING,
@@ -70,12 +68,21 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'locale_seo_slugs_localeSeoId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeSeoId' }
+        ]
       }
     ]
   })
 
   LocaleSeoSlug.associate = function (models) {
+    LocaleSeoSlug.belongsTo(models.LocaleSeo, { as: 'localeSeo', foreignKey: 'localeSeoId' })
 
+    LocaleSeoSlug.hasMany(models.CustomerTracking, { as: 'customerTrackings', foreignKey: 'localeSeoSlugId' })
   }
 
   return LocaleSeoSlug

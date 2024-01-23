@@ -13,13 +13,9 @@ module.exports = function (sequelize, DataTypes) {
     },
     customerId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     fingerprintId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -50,12 +46,29 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
-      }
+      },
+      {
+        name: 'carts_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'carts_fingerprintId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'fingerprintId' }
+        ]
+      },
     ]
   })
 
   Cart.associate = function (models) {
-
+    Cart.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
+    Cart.belongsTo(models.Fingerprint, { as: 'fingerprint', foreignKey: 'fingerprintId' })
+    
+    Cart.hasMany(models.CartDetail, { as: 'cartDetails', foreignKey: 'cartId' })
   }
 
   return Cart

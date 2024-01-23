@@ -8,8 +8,6 @@ module.exports = function (sequelize, DataTypes) {
     },
     localeSeoId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     languageAlias: {
       type: DataTypes.STRING,
@@ -56,12 +54,19 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'locale_seo_redirects_localeSeoId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'localeSeoId' }
+        ]
       }
     ]
   })
 
   LocaleSeoRedirect.associate = function (models) {
-
+    LocaleSeoRedirect.belongsTo(models.LocaleSeo, { as: 'localeSeo', foreignKey: 'localeSeoId' })
   }
 
   return LocaleSeoRedirect

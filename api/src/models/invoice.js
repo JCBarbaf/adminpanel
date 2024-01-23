@@ -9,19 +9,13 @@ module.exports = function (sequelize, DataTypes) {
     customerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     saleId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     returnId: {
       type: DataTypes.INTEGER,
-      onUpdate: 'CASCADE',
-      onDelete: 'NO ACTION'
     },
     reference: {
       type: DataTypes.STRING,
@@ -60,12 +54,35 @@ module.exports = function (sequelize, DataTypes) {
         fields: [
           { name: 'id' }
         ]
+      },
+      {
+        name: 'invoices_customerId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'customerId' }
+        ]
+      },
+      {
+        name: 'invoices_saleId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'saleId' }
+        ]
+      },
+      {
+        name: 'invoices_returnId_fk',
+        using: 'BTREE',
+        fields: [
+          { name: 'returnId' }
+        ]
       }
     ]
   })
 
   Invoice.associate = function (models) {
-
+    AdminTracking.belongsTo(models.Customer, { as: 'customer', foreignKey: 'customerId' })
+    AdminTracking.belongsTo(models.Sale, { as: 'sale', foreignKey: 'saleId' })
+    AdminTracking.belongsTo(models.Return, { as: 'return', foreignKey: 'returnId' })
   }
 
   return Invoice
