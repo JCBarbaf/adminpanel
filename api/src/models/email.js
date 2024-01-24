@@ -48,7 +48,8 @@ module.exports = function (sequelize, DataTypes) {
   })
 
   Email.associate = function (models) {
-    Email.hasMany(models.Email, { as: 'emails', foreignKey: 'emailId' })
+    Email.hasMany(models.EmailError, { as: 'emailErrors', foreignKey: 'emailId' })
+    Email.hasMany(models.SentEmail, { as: 'sentEmails', foreignKey: 'emailId' })
   }
 
   return Email

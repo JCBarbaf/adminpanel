@@ -232,14 +232,14 @@ class DataAdd extends HTMLElement {
           </form>
         </main>
       `
-    const tabs = this.shadow.querySelector('.tabs')
     const form = this.shadow.querySelector('main')
     const lettersOnlyregex = /^[a-zA-ZÑÁÉÍÓÚñáéíóú]+$/
-    tabs?.addEventListener('click', (event) => {
+    form.addEventListener('click', async (event) => {
       if (event.target.closest('.tab')) {
         const tabClicked = event.target.closest('.tab')
+        const oldTab = tabClicked.parentNode.querySelector('.selected').dataset.field
         tabClicked.parentNode.querySelector('.selected').classList.remove('selected')
-        this.shadow.querySelector('[data-field].tab-content.selected').classList.remove('selected')
+        this.shadow.querySelector(`[data-field="${oldTab}"].tab-content.selected`).classList.remove('selected')
         tabClicked.classList.add('selected')
         this.shadow.querySelector(`[data-field="${tabClicked.dataset.field}"].tab-content`).classList.add('selected')
       }
