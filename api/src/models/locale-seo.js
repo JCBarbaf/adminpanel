@@ -8,15 +8,30 @@ module.exports = function (sequelize, DataTypes) {
     },
     languageAlias: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "languageAlias".'
+        }
+      }
     },
     url: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "url".'
+        }
+      }
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "title".'
+        }
+      }
     },
     description: {
       type: DataTypes.STRING
@@ -33,7 +48,12 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING
     },
     priority: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
+      validate: {
+        isDecimal: {
+          msg: 'Por favor, añade un número válido.'
+        }
+      }
     },
     sitemap: {
       type: DataTypes.BOOLEAN,

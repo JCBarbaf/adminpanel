@@ -7,20 +7,40 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     userId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Usuario".'
+        }
+      }
     },
     entity: {
-      type: Sequelize.STRING,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Entity".'
+        }
+      }
     },
     entityId: {
-      type: Sequelize.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "EntityId".'
+        }
+      }
     },
     action: {
-      type: Sequelize.STRING,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Acción".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

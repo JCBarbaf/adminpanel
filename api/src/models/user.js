@@ -8,16 +8,49 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "name".'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Email".'
+        },
+        isEmail: {
+          msg: 'Por favor, rellena el campo "Email" con un email válido.'
+        },
+        isUnique: function (value, next) {
+          const self = this
+          Customer.findOne({ where: { email: value } }).then(function (customer) {
+            if (customer && self.id !== customer.id) {
+              return next('Ya existe un cliente con ese email.')
+            }
+            return next()
+          }).catch(function (err) {
+            return next(err)
+          })
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        is: {
+          arg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
+          mg: 'La contraseña debe tener mínimo 8 carácteres, una letra mínuscula, una mayuscula, un número y un carácter especial'
+        },
+        notNull: {
+          msg: 'Por favor, rellena el campo "password".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

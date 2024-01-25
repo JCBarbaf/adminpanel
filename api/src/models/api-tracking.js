@@ -13,43 +13,91 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER
     },
     ip: {
-      type: DataTypes.STRING,
-      allowNull: false
+      type: DataTypes.IP,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "IP".'
+        },
+        isIP: {
+          msg: 'Introduce una IP valida".'
+        }
+      }
     },
     isRobot: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "isRobot".'
+        }
+      }
     },
     resource: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "Resource".'
+        }
+      }
     },
     resourceElement: {
       type: DataTypes.INTEGER
     },
     method: {
+      type: DataTypes.STRING,
       allowNull: false,
-      type: DataTypes.STRING
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "method".'
+        }
+      }
     },
     httpCode: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "httpCode".'
+        }
+      }
     },
     message: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "message".'
+        }
+      }
     },
     startTime: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "startTime".'
+        }
+      }
     },
     endTime: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "endTime".'
+        }
+      }
     },
     latencyMS: {
       type: DataTypes.DOUBLE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "latency".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

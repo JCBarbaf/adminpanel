@@ -8,12 +8,33 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "name".'
+        }
+      }
     },
     alias: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "alias".'
+        }
+      },
+      isUnique: function (value, next) {
+        const self = this
+        Customer.findOne({ where: { email: value } }).then(function (customer) {
+          if (customer && self.id !== customer.id) {
+            return next('Ya existe un cliente con ese email.')
+          }
+          return next()
+        }).catch(function (err) {
+          return next(err)
+        })
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

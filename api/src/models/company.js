@@ -9,43 +9,105 @@ module.exports = function (sequelize, DataTypes) {
     countryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "country".'
+        }
+      }
     },
     cityId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "city".'
+        }
+      }
     },
     dialCodeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "dialCode".'
+        }
+      }
     },
     fiscalName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "fiscalName".'
+        }
+      }
     },
     comercialName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "comercialName".'
+        }
+      }
     },
     vat: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "vat".'
+        }
+      }
     },
     comercialAddress: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "comercialAdress".'
+        }
+      }
     },
     fiscalAddress: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "fiscalAdress".'
+        }
+      }
     },
     postalCode: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "postalCode".'
+        }
+      }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      notNull: {
+        msg: 'Por favor, rellena el campo "Email".'
+      },
+      isEmail: {
+        msg: 'Por favor, rellena el campo "Email" con un email válido.'
+      },
+      isUnique: function (value, next) {
+        const self = this
+        Customer.findOne({ where: { email: value } }).then(function (customer) {
+          if (customer && self.id !== customer.id) {
+            return next('Ya existe un cliente con ese email.')
+          }
+          return next()
+        }).catch(function (err) {
+          return next(err)
+        })
+      }
     },
     web: {
       type: DataTypes.STRING

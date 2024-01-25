@@ -9,18 +9,38 @@ module.exports = function (sequelize, DataTypes) {
     saleId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "sale".'
+        }
+      }
     },
     productId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "product".'
+        }
+      }
     },
     localeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "locale".'
+        }
+      }
     },
     priceId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "price".'
+        }
+      }
     },
     priceDiscountId: {
       type: DataTypes.INTEGER,
@@ -28,22 +48,55 @@ module.exports = function (sequelize, DataTypes) {
     taxId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "tax".'
+        }
+      }
     },
     productName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "productName".'
+        }
+      }
     },
     basePrice: {
       type: DataTypes.DECIMAL(6, 2),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "basePrice".'
+        },
+        is: {
+          args: /^[0-9]{1,6}\.[0-9]{2}$/,
+          msg: 'Por favor, añade un precio válido".'
+        }
+      }
     },
     taxPrice: {
       type: DataTypes.DECIMAL(6, 2),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "taxPrice".'
+        },
+        is: {
+          args: /^[0-9]{1,6}\.[0-9]{2}$/,
+          msg: 'Por favor, añade un precio válido".'
+        }
+      }
     },
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "quantity".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

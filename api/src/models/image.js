@@ -9,13 +9,23 @@ module.exports = function (sequelize, DataTypes) {
     imageConfigurationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "imageConfiguartionId".'
+        }
+      }
     },
     entityId: {
       type: DataTypes.INTEGER
     },
     entity: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "entity".'
+        }
+      }
     },
     name: {
       type: DataTypes.STRING
@@ -34,15 +44,30 @@ module.exports = function (sequelize, DataTypes) {
     },
     languageAlias: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "languageAlias".'
+        }
+      }
     },
     mediaQuery: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "mediaQuery".'
+        }
+      }
     },
     latencyMs: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "latencyms".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,

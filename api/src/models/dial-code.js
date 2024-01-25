@@ -9,10 +9,20 @@ module.exports = function (sequelize, DataTypes) {
     countryId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "contry".'
+        }
+      }
     },
     dialCode: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Por favor, rellena el campo "dialCode".'
+        }
+      }
     },
     createdAt: {
       type: DataTypes.DATE,
