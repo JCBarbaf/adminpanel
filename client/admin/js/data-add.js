@@ -78,6 +78,9 @@ class DataAdd extends HTMLElement {
             .tab.selected {
               filter: brightness(0.8);
             }
+            .tab-content .tab {
+              padding: 0 30%;
+            }
             .add-buttons {
               padding: 0 2%;
             }
@@ -212,6 +215,22 @@ class DataAdd extends HTMLElement {
                 <input type="password" name="conf-passwd" id="conf-passwd">
               </div>
             </div>
+            <header>
+              <div class="tabs">
+                <div class="tab selected" data-field="es">
+                  <h3>es</h3>
+                </div>
+                <div class="tab" data-field="en">
+                  <h3>en</h3>
+                </div>
+              </div>
+            </header>
+            <div class="tab-content selected" data-field="es">
+              <h2>hola</h2>
+            </div>
+            <div class="tab-content" data-field="en">
+              <h2>hello</h2>
+            </div>
             </div>
             <div class="tab-content" data-field="images">
               <div class="form-row">
@@ -231,15 +250,16 @@ class DataAdd extends HTMLElement {
             </div>
           </form>
         </main>
+        <image-modal-component></image-modal-component>
       `
     const form = this.shadow.querySelector('main')
     const lettersOnlyregex = /^[a-zA-ZÑÁÉÍÓÚñáéíóú]+$/
     form.addEventListener('click', async (event) => {
       if (event.target.closest('.tab')) {
         const tabClicked = event.target.closest('.tab')
-        const oldTab = tabClicked.parentNode.querySelector('.selected').dataset.field
-        tabClicked.parentNode.querySelector('.selected').classList.remove('selected')
-        this.shadow.querySelector(`[data-field="${oldTab}"].tab-content.selected`).classList.remove('selected')
+        const oldTab = tabClicked.parentNode.querySelector('.selected')
+        oldTab.classList.remove('selected')
+        this.shadow.querySelector(`[data-field="${oldTab.dataset.field}"].tab-content.selected`).classList.remove('selected')
         tabClicked.classList.add('selected')
         this.shadow.querySelector(`[data-field="${tabClicked.dataset.field}"].tab-content`).classList.add('selected')
       }
