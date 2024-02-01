@@ -132,16 +132,23 @@ class DataAdd extends HTMLElement {
             input[type="file"] {
               display: none;
             }
-            .file-icon {
+            .add-image {
+              --size: 6rem;
+              width: var(--size);
+              height: var(--size);
               display: flex;
               justify-content: center;
               align-items: center;
-              margin-top: 1%;
-              padding: 1%;
+              margin: 2% 0;
               background-color: var(--tertiary-color,rgb(150, 156, 172));
-              color: var(--white,white);
-              border-radius: 5px;
+              color: rgb(0,0,0,0.2);
+              border: var(--border,3px solid rgba(0, 0, 0, 0.2));
+              border-radius: 0.5rem;
               cursor: pointer;
+              font-size: 4rem;
+              &:hover {
+                transform: scale(1.1);
+              }
             }
             /* Animaciones */
             @keyframes shake {
@@ -197,23 +204,9 @@ class DataAdd extends HTMLElement {
             <div class="tab-content selected" data-field="principal">
               <div class="form-row">
                 <div class="form-field">
-                  <label for="user">Usuario:</label>
+                  <label for="user">Name:</label>
                   <input type="text" name="user" id="user" data-rule="lettersonly">
                 </div>
-                <div class="form-field">
-                  <label for="email">Email:</label>
-                  <input type="email" name="email" id="email">
-                </div>
-            </div>
-            <div class="form-row">
-              <div class="form-field">
-                <label for="passwd">Contraseña:</label>
-                <input class="validate" type="password" name="passwd" id="passwd" data-minlength="8">
-              </div>
-              <div class="form-field">
-                <label for="conf-passwd">Confirmar contraseña:</label>
-                <input type="password" name="conf-passwd" id="conf-passwd">
-              </div>
             </div>
             <header>
               <div class="tabs">
@@ -226,23 +219,50 @@ class DataAdd extends HTMLElement {
               </div>
             </header>
             <div class="tab-content selected" data-field="es">
-              <h2>hola</h2>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="question">Pregunta:</label>
+                  <input type="question" name="question">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="answer">Respuesta:</label>
+                  <textarea type="answer" name="answer"></textarea>
+                </div>
+              </div>
             </div>
             <div class="tab-content" data-field="en">
-              <h2>hello</h2>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="question">Question:</label>
+                  <input type="question" name="question">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="answer">Answer:</label>
+                  <textarea type="answer" name="answer"></textarea>
+                </div>
+              </div>
             </div>
             </div>
             <div class="tab-content" data-field="images">
               <div class="form-row">
                 <div class="form-field">
                   <label for="avatar">Avatar:</label>
-                  <label class="file-icon" for="avatar">
-                    Buscar imágen:
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
-                    </svg>
-                  </label>
+                  <button class="add-image">+<button>
                   <input type="file" name="avatar" id="avatar">
+                </div>
+                <div class="form-field">
+                  <label for="banner">Banner:</label>
+                  <button class="add-image">+<button>
+                  <input type="file" name="banner" id="banner">
+                </div>
+                <div class="form-field">
+                  <label for="logo">Logo:</label>
+                  <button class="add-image">+<button>
+                  <input type="file" name="logo" id="logo">
                 </div>
               </div>
             </div>
@@ -297,6 +317,10 @@ class DataAdd extends HTMLElement {
     this.shadow.addEventListener('click', (event) => {
       if (event.target.closest('.save-button')) {
         document.dispatchEvent(new CustomEvent('showNotification'))
+      }
+      if (event.target.closest('.add-image')) {
+        event.preventDefault()
+        document.dispatchEvent(new Event('showImageModal'))
       }
     })
   }
