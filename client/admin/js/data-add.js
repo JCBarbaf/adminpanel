@@ -320,7 +320,7 @@ class DataAdd extends HTMLElement {
       }
       if (event.target.closest('.add-image')) {
         event.preventDefault()
-        document.dispatchEvent(new Event('showImageModal'))
+        document.dispatchEvent(new CustomEvent('showImageModal'))
       }
     })
   }
