@@ -79,9 +79,6 @@ module.exports = function (sequelize, DataTypes) {
     taxPrice: {
       type: DataTypes.DECIMAL(6, 2),
       validate: {
-        notNull: {
-          msg: 'Por favor, rellena el campo "taxPrice".'
-        },
         is: {
           args: /^[0-9]{1,6}\.[0-9]{2}$/,
           msg: 'Por favor, añade un precio válido".'

@@ -74,7 +74,7 @@ exports.update = (req, res) => {
     }
   }).catch(_ => {
     res.status(500).send({
-      message: 'Algún error ha surgido al actualiazar la id=' + id
+      message: 'Algún error ha surgido al actualizar la id=' + id
     })
   })
 }
@@ -84,7 +84,7 @@ exports.delete = (req, res) => {
 
   User.destroy({
     where: { id }
-  }).then(([numberRowsAffected]) => {
+  }).then((numberRowsAffected) => {
     if (numberRowsAffected === 1) {
       res.status(200).send({
         message: 'El elemento ha sido borrado correctamente'

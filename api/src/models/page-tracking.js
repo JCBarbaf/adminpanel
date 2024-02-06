@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     ip: {
-      type: DataTypes.IP,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {

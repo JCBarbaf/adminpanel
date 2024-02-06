@@ -27,11 +27,6 @@ module.exports = function (sequelize, DataTypes) {
     returnId: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      validate: {
-        notNull: {
-          msg: 'Por favor, rellena el campo "return".'
-        }
-      }
     },
     reference: {
       type: DataTypes.STRING,

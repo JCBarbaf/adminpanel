@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER
     },
     ip: {
-      type: DataTypes.IP,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: {
@@ -66,11 +66,6 @@ module.exports = function (sequelize, DataTypes) {
     message: {
       type: DataTypes.TEXT,
       allowNull: true,
-      validate: {
-        notNull: {
-          msg: 'Por favor, rellena el campo "message".'
-        }
-      }
     },
     startTime: {
       type: DataTypes.DOUBLE,
