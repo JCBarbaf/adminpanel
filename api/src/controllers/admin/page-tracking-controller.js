@@ -19,7 +19,7 @@ exports.findAll = (req, res) => {
   const offset = (page - 1) * limit
 
   PageTracking.findAndCountAll({
-    attributes: ['id', 'cusatomerId', 'fingerprintId', 'createdAt', 'updatedAt'],
+    attributes: ['id', 'customerId', 'fingerprintId', 'createdAt', 'updatedAt'],
     limit,
     offset,
     order: [['createdAt', 'DESC']]

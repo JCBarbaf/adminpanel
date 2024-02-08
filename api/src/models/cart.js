@@ -12,6 +12,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: DataTypes.UUIDV4,
       validate: {
         isUUID: {
+          args: 4,
           msg: 'Por favor, añade una UUID válida.'
         }
       }

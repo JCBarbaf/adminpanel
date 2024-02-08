@@ -11,7 +11,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notNull: {
-          msg: 'Por favor, rellena el campo "lanuageAlias".'
+          msg: 'Por favor, rellena el campo "languageAlias".'
         }
       }
     },

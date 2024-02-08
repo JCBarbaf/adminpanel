@@ -19,7 +19,7 @@ exports.findAll = (req, res) => {
   const offset = (page - 1) * limit
 
   AdminTracking.findAndCountAll({
-    attributes: ['id', 'subject' ,'createdAt', 'updatedAt'],
+    attributes: ['id', 'entity' ,'createdAt', 'updatedAt'],
     limit,
     offset,
     order: [['createdAt', 'DESC']]
@@ -34,7 +34,7 @@ exports.findAll = (req, res) => {
       res.status(200).send(result)
     }).catch(err => {
       res.status(500).send({
-        message: err.errors || 'Algún error ha surgido al recuperar los datos.'
+        message: err.errors || 'Algún error ha surgido al recuperar los datos.'+err
       })
     })
 }

@@ -19,7 +19,7 @@ exports.findAll = (req, res) => {
   const offset = (page - 1) * limit
 
   ProductCategoryRelation.findAndCountAll({
-    attributes: ['id', 'productId', 'categoryId', 'createdAt', 'updatedAt'],
+    attributes: ['id', 'productId', 'productCategoryId', 'createdAt', 'updatedAt'],
     limit,
     offset,
     order: [['createdAt', 'DESC']]

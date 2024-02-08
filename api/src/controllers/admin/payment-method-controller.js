@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     res.status(200).send(data)
   }).catch(err => {
     res.status(500).send({
-      message: err.errors || 'Algún error ha surgido al insertar el dato.'
+      message: err.errors || 'Algún error ha surgido al insertar el dato.' +err
     })
   })
 }

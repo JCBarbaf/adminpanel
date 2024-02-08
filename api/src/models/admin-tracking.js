@@ -60,7 +60,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'api_trackings',
+    tableName: 'admin_trackings',
     timestamps: true,
     paranoid: true,
     indexes: [

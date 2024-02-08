@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
         notNull: {
           msg: 'Por favor, rellena el campo "País".'
         },
-        isEamil: {
+        isEmail: {
           msg: 'Por favor, introduce un email válido.'
         }
       }

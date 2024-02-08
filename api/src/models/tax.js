@@ -41,8 +41,8 @@ module.exports = function (sequelize, DataTypes) {
           msg: 'Por favor, rellena el campo "multiplier".'
         },
         is: {
-          args: /^[0-9]{1,10}\.[0-9]{2}$/,
-          msg: 'Por favor, añade un precio válido".'
+          args: /^[0-9]{1,10}\.[0-9]+$/,
+          msg: 'Por favor, añade un multiplicador válido".'
         }
       }
     },

@@ -52,7 +52,7 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'payment_method',
+    tableName: 'payment_methods',
     timestamps: true,
     paranoid: true,
     indexes: [
@@ -72,7 +72,7 @@ module.exports = function (sequelize, DataTypes) {
     PaymentMethod.hasMany(models.Return, { as: 'returns', foreignKey: 'paymentMethodId' })
     PaymentMethod.hasMany(models.SaleError, { as: 'saleErrors', foreignKey: 'paymentMethodId' })
     PaymentMethod.hasMany(models.Sale, { as: 'sales', foreignKey: 'paymentMethodId' })
-    PaymentMethod.belongsToMany(models.Product, { through: models.SaleDetail, as: 'products', foreignKey: 'paymentMethodId' })
+    PaymentMethod.belongsToMany(models.Product, { through: models.Sale, as: 'products', foreignKey: 'paymentMethodId' })
   }
 
   return PaymentMethod

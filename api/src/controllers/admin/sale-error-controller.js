@@ -19,7 +19,7 @@ exports.findAll = (req, res) => {
   const offset = (page - 1) * limit
 
   SaleError.findAndCountAll({
-    attributes: ['id', 'cartId', 'errorCode', 'erroeMessage', 'createdAt', 'updatedAt'],
+    attributes: ['id', 'cartId', 'errorCode', 'errorMessage', 'createdAt', 'updatedAt'],
     limit,
     offset,
     order: [['createdAt', 'DESC']]
