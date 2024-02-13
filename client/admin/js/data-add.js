@@ -199,13 +199,14 @@ class DataAdd extends HTMLElement {
               </button>
             </div>
           </header>
-          <form>
+          <form class="main-form">
+            <input type="hidden" name="id">
             <notification-component></notification-component>
             <div class="tab-content selected" data-field="principal">
               <div class="form-row">
                 <div class="form-field">
                   <label for="user">Name:</label>
-                  <input type="text" name="user" id="user" data-rule="lettersonly">
+                  <input type="text" name="name" data-rule="lettersonly">
                 </div>
             </div>
             <header>
@@ -272,9 +273,9 @@ class DataAdd extends HTMLElement {
         </main>
         <image-modal-component></image-modal-component>
       `
-    const form = this.shadow.querySelector('main')
+    const main = this.shadow.querySelector('main')
     const lettersOnlyregex = /^[a-zA-ZÑÁÉÍÓÚñáéíóú]+$/
-    form.addEventListener('click', async (event) => {
+    main.addEventListener('click', async (event) => {
       if (event.target.closest('.tab')) {
         const tabClicked = event.target.closest('.tab')
         const oldTab = tabClicked.parentNode.querySelector('.selected')
@@ -284,8 +285,7 @@ class DataAdd extends HTMLElement {
         this.shadow.querySelector(`[data-field="${tabClicked.dataset.field}"].tab-content`).classList.add('selected')
       }
     })
-    form.addEventListener('input', (event) => {
-      console.log('hola')
+    main.addEventListener('input', (event) => {
       const input = event.target.closest('input')
       if (input.dataset.minlength) {
         if (input.value.length === 0) {
@@ -314,9 +314,37 @@ class DataAdd extends HTMLElement {
         }
       }
     })
-    this.shadow.addEventListener('click', (event) => {
+    this.shadow.addEventListener('click', async (event) => {
       if (event.target.closest('.save-button')) {
         document.dispatchEvent(new CustomEvent('showNotification'))
+        const form = this.shadow.querySelector('.main-form')
+        const formData = new FormData(form)
+        const formDataJson = Object.fromEntries(formData.entries())
+        delete formDataJson.id
+        try {
+          const response = await fetch('http://127.0.0.1:8080/api/admin/faqs', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formDataJson)
+          })
+          if (response.status === 422 || response.status === 500) {
+            throw response
+          }
+          if (response.status === 200) {
+            const data = await response.json()
+            Object.entries(data).forEach(([key, value]) => {
+              console.log(`${key}: ${value}`)
+            })
+            document.dispatchEvent(new CustomEvent('message'))
+          }
+        } catch (response) {
+          const error = await response.json()
+          error.message.forEach(error => {
+            console.log(error.message)
+          })
+        }
       }
       if (event.target.closest('.add-image')) {
         event.preventDefault()
