@@ -93,6 +93,9 @@ class DataAdd extends HTMLElement {
             .tab-content.selected {
               display: block;
             }
+            .error-message {
+              color: orange;
+            }
             .form-row {
               display: flex;
               flex-wrap: wrap;
@@ -202,6 +205,7 @@ class DataAdd extends HTMLElement {
           <form class="main-form">
             <input type="hidden" name="id">
             <notification-component></notification-component>
+            <div class="error-message"></div>
             <div class="tab-content selected" data-field="principal">
               <div class="form-row">
                 <div class="form-field">
@@ -322,7 +326,7 @@ class DataAdd extends HTMLElement {
         const formDataJson = Object.fromEntries(formData.entries())
         delete formDataJson.id
         try {
-          const response = await fetch('http://127.0.0.1:8080/api/admin/faqs', {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -340,8 +344,13 @@ class DataAdd extends HTMLElement {
             document.dispatchEvent(new CustomEvent('message'))
           }
         } catch (response) {
+          const errorMessage = this.shadow.querySelector('.error-message')
+          errorMessage.innerHTML = ''
           const error = await response.json()
           error.message.forEach(error => {
+            const errorLine = document.createElement('p')
+            errorLine.innerHTML = error.message
+            errorMessage.appendChild(errorLine)
             console.log(error.message)
           })
         }

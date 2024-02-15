@@ -2,11 +2,18 @@ class DataList extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
-    this.title = this.getAttribute('title')
+    this.rows = null
   }
 
   connectedCallback () {
-    this.render()
+    this.loadData().then(() => this.render())
+  }
+
+  async loadData () {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`)
+    const data = await response.json()
+    this.rows = data.rows
+    console.log(this.rows)
   }
 
   render () {
@@ -42,6 +49,7 @@ class DataList extends HTMLElement {
                 margin-right: 1%;
                 color: var(--tertiary-color,rgb(150, 156, 172));
                 font-weight: bold;
+                text-transform: capitalize;
             }
             main {
                 height: 80vh;
@@ -145,82 +153,6 @@ class DataList extends HTMLElement {
             <filter-component></filter-component>
             <div class="list-content">
                 <delete-component></delete-component>
-                <div class="data-table">
-                    <header>
-                        <button class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </button>
-                        <button class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" />
-                            </svg>
-                        </button>
-                    </header>
-                    <div class="data-table-content">
-                        <p><span>User:</span> jcbarbaf</p>
-                        <p><span>Email:</span> jcbarbaf@gmail.com</p>
-                        <p><span>Password:</span> psswd12345</p>
-                    </div>
-                </div>
-                <div class="data-table">
-                    <header>
-                        <button class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </button>
-                        <button class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" />
-                            </svg>
-                        </button>
-                    </header>
-                    <div class="data-table-content">
-                        <p><span>User:</span> jcbarbaf</p>
-                        <p><span>Email:</span> jcbarbaf@gmail.com</p>
-                        <p><span>Password:</span> psswd12345</p>
-                    </div>
-                </div>
-                <div class="data-table">
-                    <header>
-                        <button class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </button>
-                        <button class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" />
-                            </svg>
-                        </button>
-                    </header>
-                    <div class="data-table-content">
-                        <p><span>User:</span> jcbarbaf</p>
-                        <p><span>Email:</span> jcbarbaf@gmail.com</p>
-                        <p><span>Password:</span> psswd12345</p>
-                    </div>
-                </div>
-                <div class="data-table">
-                    <header>
-                        <button class="edit-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
-                            </svg>
-                        </button>
-                        <button class="delete-button">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" />
-                            </svg>
-                        </button>
-                    </header>
-                    <div class="data-table-content">
-                        <p><span>User:</span> jcbarbaf</p>
-                        <p><span>Email:</span> jcbarbaf@gmail.com</p>
-                        <p><span>Password:</span> psswd12345</p>
-                    </div>
-                </div>
             </div>
             <footer>
                 <div class="pagination">
@@ -243,8 +175,44 @@ class DataList extends HTMLElement {
             </footer>
         </main>
       `
-    const dataList = this.shadow.querySelector('main')
-    dataList?.addEventListener('click', async (event) => {
+    const main = this.shadow.querySelector('main')
+    this.rows.forEach(dataRow => {
+      const dataList = this.shadow.querySelector('.list-content')
+      const dataEntry = document.createElement('div')
+      dataEntry.classList.add('data-table')
+      const dataHeader = document.createElement('header')
+      const editButton = document.createElement('button')
+      editButton.classList.add('edit-button')
+      editButton.dataset.id = dataRow.id
+      editButton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+        </svg>
+      `
+      const deleteButton = document.createElement('button')
+      deleteButton.classList.add('edit-button')
+      deleteButton.dataset.id = dataRow.id
+      deleteButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" />
+      </svg>
+      `
+      const tableContent = document.createElement('div')
+      tableContent.classList.add('data-table-content')
+      Object.entries(dataRow).forEach(([key, value]) => {
+        if (key !== 'id') {
+          const dataLine = document.createElement('p')
+          dataLine.innerHTML = `<span>${key}</span>: ${value}`
+          tableContent.appendChild(dataLine)
+        }
+      })
+      dataEntry.appendChild(tableContent)
+      dataHeader.appendChild(deleteButton)
+      dataHeader.appendChild(editButton)
+      dataEntry.appendChild(dataHeader)
+      dataList.appendChild(dataEntry)
+    })
+    main?.addEventListener('click', async (event) => {
       if (event.target.closest('.delete-button')) {
         console.log('hola')
         document.dispatchEvent(new CustomEvent('showDeleteModal'))
