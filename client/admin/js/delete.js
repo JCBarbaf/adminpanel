@@ -2,11 +2,13 @@ class Delete extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
+    this.endpoint = null
   }
 
   connectedCallback () {
     this.render()
     document.addEventListener('showDeleteModal', event => {
+      this.endpoint = event.detail.endpoint
       this.openModal()
     })
   }
@@ -76,7 +78,7 @@ class Delete extends HTMLElement {
             <div class="modal-content">
                 <h3>¿Seguro que quieres borrar?</h3>
                 <div class="buttons">
-                    <button>Si</button>
+                    <button class="confirm">Si</button>
                     <button class="close">No</button>
                 </div>
             </div>
@@ -87,8 +89,18 @@ class Delete extends HTMLElement {
   openModal () {
     const deleteModal = this.shadow.querySelector('.delete.modal')
     deleteModal.classList.add('active')
-    deleteModal.querySelector('.close').addEventListener('click', () => {
-      deleteModal.classList.remove('active')
+    deleteModal.addEventListener('click', async (event) => {
+      if (event.target.closest('.close')) {
+        deleteModal.classList.remove('active')
+      }
+      if (event.target.closest('.confirm')) {
+        const response = await fetch(this.endpoint, {
+          method: 'DELETE'
+        })
+        const data = await response.json()
+        document.dispatchEvent(new CustomEvent('reload'))
+        deleteModal.classList.remove('active')
+      }
     })
   }
 }

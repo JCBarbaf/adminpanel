@@ -5,7 +5,12 @@ class DataAdd extends HTMLElement {
   }
 
   connectedCallback () {
+    document.addEventListener('showElement', this.handleData.bind(this))
     this.render()
+  }
+
+  handleData (event) {
+    this.showElement(event.detail.data)
   }
 
   render () {
@@ -324,10 +329,13 @@ class DataAdd extends HTMLElement {
         const form = this.shadow.querySelector('.main-form')
         const formData = new FormData(form)
         const formDataJson = Object.fromEntries(formData.entries())
+        const endpoint = formDataJson.id ? `${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${formDataJson.id}` : `${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`
+        const method = formDataJson.id ? 'PUT' : 'POST'
         delete formDataJson.id
+
         try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`, {
-            method: 'POST',
+          const response = await fetch(endpoint, {
+            method,
             headers: {
               'Content-Type': 'application/json'
             },
@@ -338,9 +346,6 @@ class DataAdd extends HTMLElement {
           }
           if (response.status === 200) {
             const data = await response.json()
-            Object.entries(data).forEach(([key, value]) => {
-              console.log(`${key}: ${value}`)
-            })
             document.dispatchEvent(new CustomEvent('message'))
           }
         } catch (response) {
@@ -354,10 +359,20 @@ class DataAdd extends HTMLElement {
             console.log(error.message)
           })
         }
+        document.dispatchEvent(new CustomEvent('reload'))
       }
       if (event.target.closest('.add-image')) {
         event.preventDefault()
         document.dispatchEvent(new CustomEvent('showImageModal'))
+      }
+    })
+  }
+
+  showElement (data) {
+    Object.entries(data).forEach(([key, value]) => {
+      const input = this.shadow.querySelector(`[name="${key}"]`)
+      if (input) {
+        input.value = value
       }
     })
   }

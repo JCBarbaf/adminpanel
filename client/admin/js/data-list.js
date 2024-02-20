@@ -6,6 +6,7 @@ class DataList extends HTMLElement {
   }
 
   connectedCallback () {
+    document.addEventListener('reload', this.handlerReload.bind(this))
     this.loadData().then(() => this.render())
   }
 
@@ -13,7 +14,10 @@ class DataList extends HTMLElement {
     const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`)
     const data = await response.json()
     this.rows = data.rows
-    console.log(this.rows)
+  }
+
+  handlerReload () {
+    this.loadData(this.currentPage).then(() => this.render())
   }
 
   render () {
@@ -190,7 +194,7 @@ class DataList extends HTMLElement {
         </svg>
       `
       const deleteButton = document.createElement('button')
-      deleteButton.classList.add('edit-button')
+      deleteButton.classList.add('delete-button')
       deleteButton.dataset.id = dataRow.id
       deleteButton.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -206,19 +210,30 @@ class DataList extends HTMLElement {
           tableContent.appendChild(dataLine)
         }
       })
-      dataEntry.appendChild(tableContent)
+      dataEntry.appendChild(dataHeader)
       dataHeader.appendChild(deleteButton)
       dataHeader.appendChild(editButton)
-      dataEntry.appendChild(dataHeader)
+      dataEntry.appendChild(tableContent)
       dataList.appendChild(dataEntry)
     })
     main?.addEventListener('click', async (event) => {
       if (event.target.closest('.delete-button')) {
-        console.log('hola')
-        document.dispatchEvent(new CustomEvent('showDeleteModal'))
+        const elementId = event.target.closest('.delete-button').dataset.id
+        const endpoint = `${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint') + '/' + elementId}`
+        document.dispatchEvent(new CustomEvent('showDeleteModal', {
+          detail: {
+            endpoint
+          }
+        }))
       }
       if (event.target.closest('.filter-button')) {
         document.dispatchEvent(new CustomEvent('showFilterModal'))
+      }
+      if (event.target.closest('.edit-button')) {
+        const elementId = event.target.closest('.edit-button').dataset.id
+        const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint') + '/' + elementId}`)
+        const data = await response.json()
+        document.dispatchEvent(new CustomEvent('showElement', { detail: { data } }))
       }
     })
   }
