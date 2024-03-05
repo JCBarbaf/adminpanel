@@ -12,13 +12,12 @@ class Faqs extends HTMLElement {
   async loadData () {
     const response = await fetch(`${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`)
     const data = await response.json()
-    this.rows = data.rows
-    console.log(this.rows)
-    this.faqs =[]
+    this.rows = data
+    this.faqs = []
     this.rows.forEach(row => {
       this.faqs.push({
-        title: row.name,
-        description: 'Descripción genérica.'
+        title: row.locales.question,
+        description: row.locales.answer
       })
     });
   }

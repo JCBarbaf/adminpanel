@@ -132,6 +132,7 @@ class DataAdd extends HTMLElement {
             }
             textarea {
               min-height: 5rem;
+              font: inherit;
             }
             input[type="number"]::-webkit-outer-spin-button,
             input[type="number"]::-webkit-inner-spin-button {
@@ -232,13 +233,13 @@ class DataAdd extends HTMLElement {
               <div class="form-row">
                 <div class="form-field">
                   <label for="question">Pregunta:</label>
-                  <input type="question" name="question">
+                  <input type="question" name="locales.es.question">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-field">
                   <label for="answer">Respuesta:</label>
-                  <textarea type="answer" name="answer"></textarea>
+                  <textarea type="answer" name="locales.es.answer"></textarea>
                 </div>
               </div>
             </div>
@@ -246,13 +247,13 @@ class DataAdd extends HTMLElement {
               <div class="form-row">
                 <div class="form-field">
                   <label for="question">Question:</label>
-                  <input type="question" name="question">
+                  <input type="question" name="locales.en.question">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-field">
                   <label for="answer">Answer:</label>
-                  <textarea type="answer" name="answer"></textarea>
+                  <textarea type="answer" name="locales.en.answer"></textarea>
                 </div>
               </div>
             </div>
@@ -283,7 +284,7 @@ class DataAdd extends HTMLElement {
         <image-modal-component></image-modal-component>
       `
     const main = this.shadow.querySelector('main')
-    const lettersOnlyregex = /^[a-zA-ZÑÁÉÍÓÚñáéíóú]+$/
+    // const lettersOnlyregex = /^[a-zA-ZÑÁÉÍÓÚñáéíóú]+$/
     main.addEventListener('click', async (event) => {
       if (event.target.closest('.tab')) {
         const tabClicked = event.target.closest('.tab')
@@ -294,45 +295,58 @@ class DataAdd extends HTMLElement {
         this.shadow.querySelector(`[data-field="${tabClicked.dataset.field}"].tab-content`).classList.add('selected')
       }
     })
-    main.addEventListener('input', (event) => {
-      const input = event.target.closest('input')
-      if (input.dataset.minlength) {
-        if (input.value.length === 0) {
-          input.classList.remove('valid')
-          input.classList.remove('invalid')
-        } else if (input.value.length < input.dataset.minlength) {
-          input.classList.remove('valid')
-          input.classList.add('invalid')
-        } else {
-          input.classList.remove('invalid')
-          input.classList.add('valid')
-        }
-      }
-      if (input.dataset.rule) {
-        if (input.dataset.rule === 'lettersonly') {
-          if (input.value.length === 0) {
-            input.classList.remove('valid')
-            input.classList.remove('invalid')
-          } else if (lettersOnlyregex.test(input.value)) {
-            input.classList.remove('invalid')
-            input.classList.add('valid')
-          } else {
-            input.classList.remove('valid')
-            input.classList.add('invalid')
-          }
-        }
-      }
-    })
+    // main.addEventListener('input', (event) => {
+    //   const input = event.target.closest('input')
+    //   if (input.dataset.minlength) {
+    //     if (input.value.length === 0) {
+    //       input.classList.remove('valid')
+    //       input.classList.remove('invalid')
+    //     } else if (input.value.length < input.dataset.minlength) {
+    //       input.classList.remove('valid')
+    //       input.classList.add('invalid')
+    //     } else {
+    //       input.classList.remove('invalid')
+    //       input.classList.add('valid')
+    //     }
+    //   }
+    //   if (input.dataset.rule) {
+    //     if (input.dataset.rule === 'lettersonly') {
+    //       if (input.value.length === 0) {
+    //         input.classList.remove('valid')
+    //         input.classList.remove('invalid')
+    //       } else if (lettersOnlyregex.test(input.value)) {
+    //         input.classList.remove('invalid')
+    //         input.classList.add('valid')
+    //       } else {
+    //         input.classList.remove('valid')
+    //         input.classList.add('invalid')
+    //       }
+    //     }
+    //   }
+    // })
     this.shadow.addEventListener('click', async (event) => {
       if (event.target.closest('.save-button')) {
         document.dispatchEvent(new CustomEvent('showNotification'))
         const form = this.shadow.querySelector('.main-form')
         const formData = new FormData(form)
-        const formDataJson = Object.fromEntries(formData.entries())
+        const formDataJson = {}
+        for (const [key, value] of formData.entries()) {
+          if (key.includes('locales')) {
+            const [prefix, locales, field] = key.split('.')
+            if (!(prefix in formDataJson)) {
+              formDataJson[prefix] = {}
+            }
+            if (!(locales in formDataJson[prefix])) {
+              formDataJson[prefix][locales] = {}
+            }
+            formDataJson[prefix][locales][field] = value ?? null
+          } else {
+            formDataJson[key] = value ?? null
+          }
+        }
         const endpoint = formDataJson.id ? `${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}/${formDataJson.id}` : `${import.meta.env.VITE_API_URL}${this.getAttribute('endpoint')}`
         const method = formDataJson.id ? 'PUT' : 'POST'
         delete formDataJson.id
-
         try {
           const response = await fetch(endpoint, {
             method,
@@ -360,6 +374,7 @@ class DataAdd extends HTMLElement {
           })
         }
         document.dispatchEvent(new CustomEvent('reload'))
+        this.render()
       }
       if (event.target.closest('.add-image')) {
         event.preventDefault()
