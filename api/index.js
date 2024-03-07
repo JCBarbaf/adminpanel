@@ -5,13 +5,15 @@ const cors = require('cors')
 const fs = require('fs')
 const app = express()
 const userAgentMiddleware = require('./src/middlewares/user-agent')
+const exposeServiceMiddleware = require('./src/middlewares/expose-services')
 
 const corsOptions = {
-  origin: ['http://localhost:5173','http://localhost:5174']
+  origin: ['http://localhost:5173','http://localhost:5174'],
 }
 
 app.use(cors(corsOptions))
 app.use(userAgentMiddleware)
+app.use(...Object.values(exposeServiceMiddleware))
 app.use(express.json({ limit: '10mb', extended: true }))
 app.use(express.urlencoded({ limit: '10mb', extended: true, parameterLimit: 50000 }))
 

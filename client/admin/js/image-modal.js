@@ -159,7 +159,7 @@ class ImageModal extends HTMLElement {
           <main>
             <div class="galery">
               <label class="add-image" for="image">+</label>
-              <input type="file" accept="image/png, image/gif, image/jpeg, image/webp" name="image" id="image">
+              <input type="file" accept="image/png, image/gif, image/jpeg, image/webp" name="file" id="image">
               <img class="image" src="https://bestfriends.org/sites/default/files/styles/image_mobile_square/public/image/WaffleLove1384sak_1.jpg?h=ebb7fe6c&itok=LPFwsJ-A" alt="michi" title="michi">
               <img class="image" src="https://images.hola.com/imagenes/mascotas/20180925130054/consejos-para-cuidar-a-un-gatito-recien-nacido-cs/0-601-526/cuidardgatito-t.jpg" alt="michi" title="michi">
               <img class="image" src="https://purina.com.ve/sites/default/files/2022-10/purina-brand-que-saber-de-los-gatitos-bebes.jpg" alt="michi" title="michi">
@@ -202,11 +202,24 @@ class ImageModal extends HTMLElement {
         event.target.closest('.image').classList.add('selected')
       }
     })
+    const input = this.shadow.querySelector('#image')
+    input.addEventListener('change', (event) => {
+      this.uploadImage(event.target.files[0])
+    })
   }
 
   openModal () {
     const modal = this.shadow.querySelector('.modal')
     modal.classList.add('active')
-  };
+  }
+
+  async uploadImage (file) {
+    const formData = new FormData()
+    formData.append('file', file)
+    const result = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`, {
+      method: 'POST',
+      body: formData
+    })
+  }
 }
 customElements.define('image-modal-component', ImageModal)
