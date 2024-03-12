@@ -1,61 +1,56 @@
 const sequelizeDb = require('../../models/sequelize')
 const Image = sequelizeDb.Image
 const Op = sequelizeDb.Sequelize.Op
+const fs = require('fs');
 
 exports.create = async (req, res) => {
-  const result = await req.imageService.uploadImage(req.files)
-  // Image.create(req.body).then(data => {
-  //   res.status(200).send(data)
-  // }).catch(err => {
-  //   res.status(500).send({
-  //     message: err.errors || 'Algún error ha surgido al insertar el dato.'
-  //   })
-  // })
+  try {
+    const result = await req.imageService.uploadImage(req.files)
+    res.status(200).send(result)
+  } catch (error) {
+    res.status(500).send({
+      message: err.errors || 'Algún error ha surgido al insertar el dato.'
+    })
+  }
 }
 
 exports.findAll = (req, res) => {
-
-  const page = req.query.page || 1
-  const limit = parseInt(req.query.size) || 10
-  const offset = (page - 1) * limit
-
-  Image.findAndCountAll({
-    attributes: ['id', 'name', 'createdAt', 'updatedAt'],
-    limit,
-    offset,
-    order: [['createdAt', 'DESC']]
-  })
-    .then(result => {
-      result.meta = {
-        total: result.count,
-        pages: Math.ceil(result.count / limit),
-        currentPage: page
-      }
-
-      res.status(200).send(result)
-    }).catch(err => {
-      res.status(500).send({
-        message: err.errors || 'Algún error ha surgido al recuperar los datos.'
-      })
-    })
+  const result = []
+  const folder = __dirname + '../../../storage/images/gallery/thumbnail/'
+  try {
+    const files = fs.readdirSync(folder);
+    const result = files.map(file => {
+      return file;
+    });
+    console.log(result);
+    // Do whatever you want with 'result', maybe send it in the response
+    res.json(result);
+  } catch (err) {
+    console.error('Error reading directory:', err);
+    res.status(500).send('Internal Server Error');
+  }
+  // fs.readdir(folder, (err, files) => {
+  //   files.forEach(file => {
+  //     // console.log(file)
+  //     result.push(file)
+  //   })
+  // })
+  // console.log(result)
 }
 
 exports.findOne = (req, res) => {
-  const id = req.params.id
+  const fileName = req.params.filename
 
-  Image.findByPk(id).then(data => {
-    if (data) {
-      res.status(200).send(data)
-    } else {
-      res.status(404).send({
-        message: `No se puede encontrar el elemento con la id=${id}.`
-      })
+  const options = {
+    root: __dirname + '../../../storage/images/gallery/thumbnail/',
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
     }
-  }).catch(_ => {
-    res.status(500).send({
-      message: 'Algún error ha surgido al recuperar la id=' + id
-    })
-  })
+  }
+
+  res.sendFile(fileName, options)
 }
 
 exports.update = (req, res) => {
@@ -100,4 +95,7 @@ exports.delete = (req, res) => {
       message: 'Algún error ha surgido al borrar la id=' + id
     })
   })
+}
+exports.getImage = (req, res) => {
+
 }

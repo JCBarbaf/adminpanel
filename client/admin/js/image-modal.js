@@ -2,13 +2,22 @@ class ImageModal extends HTMLElement {
   constructor () {
     super()
     this.shadow = this.attachShadow({ mode: 'open' })
+    this.images = []
   }
 
   connectedCallback () {
-    this.render()
+    this.loadData().then(() => this.render())
     document.addEventListener('showImageModal', event => {
       this.openModal()
     })
+  }
+
+  async loadData () {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`)
+    const data = await response.json()
+    console.log(data)
+    this.images = data
+    console.log(this.images)
   }
 
   render () {
@@ -75,7 +84,7 @@ class ImageModal extends HTMLElement {
           display: flex;
           justify-content: space-between;
         }
-        .galery {
+        .gallery {
           width: 100%;
           display: flex;
           flex-wrap: wrap;
@@ -84,7 +93,7 @@ class ImageModal extends HTMLElement {
           padding: 3%;
           overflow-y: auto;
         }
-        .galery img, .galery .add-image {
+        .gallery img, .gallery .add-image {
           --size: 8rem;
           width: var(--size);
           height: var(--size);
@@ -96,7 +105,7 @@ class ImageModal extends HTMLElement {
             transform: scale(1.1);
           }
         }
-        .galery .add-image {
+        .gallery .add-image {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -107,7 +116,7 @@ class ImageModal extends HTMLElement {
         input[type="file"] {
           display: none;
         }
-        .galery img {
+        .gallery img {
           object-fit: cover;
           &.selected {
             border-color: var(--green, green)
@@ -157,23 +166,9 @@ class ImageModal extends HTMLElement {
             <button class="close">X</button>
           </header>
           <main>
-            <div class="galery">
+            <div class="gallery">
               <label class="add-image" for="image">+</label>
               <input type="file" accept="image/png, image/gif, image/jpeg, image/webp" name="file" id="image">
-              <img class="image" src="https://bestfriends.org/sites/default/files/styles/image_mobile_square/public/image/WaffleLove1384sak_1.jpg?h=ebb7fe6c&itok=LPFwsJ-A" alt="michi" title="michi">
-              <img class="image" src="https://images.hola.com/imagenes/mascotas/20180925130054/consejos-para-cuidar-a-un-gatito-recien-nacido-cs/0-601-526/cuidardgatito-t.jpg" alt="michi" title="michi">
-              <img class="image" src="https://purina.com.ve/sites/default/files/2022-10/purina-brand-que-saber-de-los-gatitos-bebes.jpg" alt="michi" title="michi">
-              <img class="image" src="https://img.freepik.com/fotos-premium/gatitos-kawaii-peluche-esponjosos-hermosa-imagen-arte-generado-ai_843679-5987.jpg" alt="michi" title="michi">
-              <img class="image" src="https://comunidad.retorn.com/wp-content/uploads/cache/2018/09/gatitos/1583254719.jpg" alt="michi" title="michi">
-              <img class="image" src="https://www.elmueble.com/medio/2023/05/22/gatitos_1f740045_230522123911_1000x667.jpg" alt="michi" title="michi">
-              <img class="image" src="https://media.istockphoto.com/id/1345472306/es/foto/un-hermoso-gatito-de-jengibre-se-sienta-en-botes-humanos-al-atardecer-al-aire-libre-el.jpg?s=612x612&w=0&k=20&c=cFZudSbqRlHQkmbLhThMfrYau9e_s2YmRUfC2oz-3hs=" alt="michi" title="michi">
-              <img class="image" src="https://www.mujerde10.com/wp-content/uploads/2023/08/fotos-gatitos-tiernos.jpg" alt="michi" title="michi">
-              <img class="image" src="https://t4.ftcdn.net/jpg/06/78/37/61/360_F_678376151_osW7O1VqMI6ly9wOBJ2vIVRgBLhCYSa8.jpg" alt="michi" title="michi">
-              <img class="image" src="https://elcomercio.pe/resizer/58mL4REVvTygv4cZdgtx460-Kes=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RVWSBX5OTRHK3DPV232FDV7ORM.jpg" alt="michi" title="michi">
-              <img class="image" src="https://elcomercio.pe/resizer/58mL4REVvTygv4cZdgtx460-Kes=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RVWSBX5OTRHK3DPV232FDV7ORM.jpg" alt="michi" title="michi">
-              <img class="image" src="https://elcomercio.pe/resizer/58mL4REVvTygv4cZdgtx460-Kes=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RVWSBX5OTRHK3DPV232FDV7ORM.jpg" alt="michi" title="michi">
-              <img class="image" src="https://elcomercio.pe/resizer/58mL4REVvTygv4cZdgtx460-Kes=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RVWSBX5OTRHK3DPV232FDV7ORM.jpg" alt="michi" title="michi">
-              <img class="image" src="https://elcomercio.pe/resizer/58mL4REVvTygv4cZdgtx460-Kes=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/RVWSBX5OTRHK3DPV232FDV7ORM.jpg" alt="michi" title="michi">
             </div>
             <form>
               <div class="form-element">
@@ -206,6 +201,16 @@ class ImageModal extends HTMLElement {
     input.addEventListener('change', (event) => {
       this.uploadImage(event.target.files[0])
     })
+    const gallery = this.shadow.querySelector('.gallery')
+    console.log(this.images)
+    this.images.forEach(file => {
+      const image = document.createElement('img')
+      image.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
+      image.title = 'hola'
+      image.alt = 'hola'
+      image.classList.add('image')
+      gallery.appendChild(image)
+    })
   }
 
   openModal () {
@@ -219,6 +224,16 @@ class ImageModal extends HTMLElement {
     const result = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`, {
       method: 'POST',
       body: formData
+    })
+    const filenames = await result.json()
+    const gallery = this.shadow.querySelector('.gallery')
+    filenames.forEach(file => {
+      const image = document.createElement('img')
+      image.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
+      image.title = 'hola'
+      image.alt = 'hola'
+      image.classList.add('image')
+      gallery.appendChild(image)
     })
   }
 }
