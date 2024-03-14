@@ -1,11 +1,17 @@
-const sequelizeDb = require('../../models/sequelize')
-const Image = sequelizeDb.Image
-const Op = sequelizeDb.Sequelize.Op
-const fs = require('fs');
+const mongooseDb = require('../../models/mongoose')
+const Image = mongooseDb.Image
+const moment = require('moment')
+const fs = require('fs')
+const fs = require('fs')
 
 exports.create = async (req, res) => {
   try {
     const result = await req.imageService.uploadImage(req.files)
+
+    for (const filename of result) {
+      await Image.create({ filename })
+    }
+
     res.status(200).send(result)
   } catch (error) {
     res.status(500).send({
@@ -14,28 +20,44 @@ exports.create = async (req, res) => {
   }
 }
 
-exports.findAll = (req, res) => {
-  const result = []
-  const folder = __dirname + '../../../storage/images/gallery/thumbnail/'
+exports.findAll = async (req, res) => {
   try {
-    const files = fs.readdirSync(folder);
-    const result = files.map(file => {
-      return file;
-    });
-    console.log(result);
-    // Do whatever you want with 'result', maybe send it in the response
-    res.json(result);
+    const page = req.query.page || 1
+    const limit = parseInt(req.query.size) || 10
+    const offset = (page - 1) * limit
+    const whereStatement = {}
+    whereStatement.deletedAt = { $exists: false }
+
+    const result = await Image.find(whereStatement)
+      .skip(offset)
+      .limit(limit)
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec()
+
+    const count = await Image.countDocuments(whereStatement)
+
+    const response = {
+      rows: result.map(doc => ({
+        ...doc,
+        id: doc._id,
+        _id: undefined,
+        createdAt: moment(doc.createdAt).format('YYYY-MM-DD HH:mm'),
+        updatedAt: moment(doc.updatedAt).format('YYYY-MM-DD HH:mm')
+      })),
+      meta: {
+        total: count,
+        pages: Math.ceil(count / limit),
+        currentPage: page
+      }
+    }
+
+    res.status(200).send(response)
   } catch (err) {
-    console.error('Error reading directory:', err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send({
+      message: err.message || 'Algún error ha surgido al recuperar los datos.'
+    })
   }
-  // fs.readdir(folder, (err, files) => {
-  //   files.forEach(file => {
-  //     // console.log(file)
-  //     result.push(file)
-  //   })
-  // })
-  // console.log(result)
 }
 
 exports.findOne = (req, res) => {
@@ -75,26 +97,39 @@ exports.update = (req, res) => {
   })
 }
 
-exports.delete = (req, res) => {
-  const id = req.params.id
+exports.delete = async (req, res) => {
+  const filename = req.params.filename
+  const path = path.join(__dirname, `../storage/images/gallery/original`, filename)
+  fs.unlink(path, (err) => {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log('File is deleted.')
+    }
+  })
+  try {
+    const data = await Image.findOneAndUpdate({filename}, { deletedAt: new Date() })
+    
+    if (data) {
+      try {
+        
+      } catch (err) {
 
-  Image.destroy({
-    where: { id }
-  }).then((numberRowsAffected) => {
-    if (numberRowsAffected === 1) {
+      }
       res.status(200).send({
-        message: 'El elemento ha sido borrado correctamente'
+        message: 'El elemento ha sido borrado correctamente.'
       })
     } else {
       res.status(404).send({
-        message: `No se puede borrar el elemento con la id=${id}. Tal vez no se ha encontrado el elemento.`
+        message: `No se puede borrar el elemento con la imagen ${filename}. Tal vez no se ha encontrado el elemento.`
       })
     }
-  }).catch(_ => {
+  } catch (err) {
+    console.log(err)
     res.status(500).send({
-      message: 'Algún error ha surgido al borrar la id=' + id
+      message: 'Algún error ha surgido al borrar la imagen=' + filename
     })
-  })
+  }
 }
 exports.getImage = (req, res) => {
 

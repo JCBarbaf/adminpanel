@@ -15,9 +15,7 @@ class ImageModal extends HTMLElement {
   async loadData () {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/images`)
     const data = await response.json()
-    console.log(data)
-    this.images = data
-    console.log(this.images)
+    this.images = data.rows
   }
 
   render () {
@@ -93,11 +91,12 @@ class ImageModal extends HTMLElement {
           padding: 3%;
           overflow-y: auto;
         }
-        .gallery img, .gallery .add-image {
+        .image-container, .gallery .add-image {
           --size: 8rem;
           width: var(--size);
           height: var(--size);
           display: block;
+          overflow: hidden;
           border: var(--border,3px solid rgba(0, 0, 0, 0.2));
           border-radius: 0.5rem;
           cursor: pointer;
@@ -116,11 +115,37 @@ class ImageModal extends HTMLElement {
         input[type="file"] {
           display: none;
         }
-        .gallery img {
-          object-fit: cover;
+        .image-container {
+          position: relative;
           &.selected {
-            border-color: var(--green, green)
+            border-color: var(--green, green);
           }
+        }
+        .image {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+        }
+        .delete-image {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: none;
+          padding: 3% 5%;
+          background-color: var(--red, red);
+          color: var(--white, white);
+          border: none;
+          border-radius: 0 0 0 0.5rem;
+          font-size: 1rem;
+          cursor: pointer;
+          &:hover {
+            transform: none;
+            filter: brightness(0.9);
+          }
+        }
+        .image-container:hover .delete-image {
+          display: block;
         }
         form {
           padding: 3%;
@@ -188,28 +213,33 @@ class ImageModal extends HTMLElement {
       </div>
     `
     const modal = this.shadow.querySelector('.modal')
-    modal.addEventListener('click', (event) => {
+    modal.addEventListener('click', async (event) => {
       if (event.target.closest('.close')) {
         modal.classList.remove('active')
       }
-      if (event.target.closest('.image')) {
-        event.target.closest('.image').parentNode.querySelector('.selected')?.classList.remove('selected')
-        event.target.closest('.image').classList.add('selected')
+      if (event.target.closest('.image-container')) {
+        event.target.closest('.image-container').parentNode.querySelector('.selected')?.classList.remove('selected')
+        event.target.closest('.image-container').classList.add('selected')
+      }
+      if (event.target.closest('.delete-image')) {
+        const endpoint = event.target.closest('.delete-image').parentNode.querySelector('.image').src
+        const response = await fetch(endpoint, {
+          method: 'DELETE'
+        })
+        const data = await response.json()
+        console.log(data)
+      }
+      if (event.target.closest('.submit-button')) {
+        const selectedImage = this.shadow.querySelector('.image-container.selected .image')
+        console.log(selectedImage)
       }
     })
     const input = this.shadow.querySelector('#image')
     input.addEventListener('change', (event) => {
       this.uploadImage(event.target.files[0])
     })
-    const gallery = this.shadow.querySelector('.gallery')
-    console.log(this.images)
     this.images.forEach(file => {
-      const image = document.createElement('img')
-      image.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
-      image.title = 'hola'
-      image.alt = 'hola'
-      image.classList.add('image')
-      gallery.appendChild(image)
+      this.createImage(file.filename)
     })
   }
 
@@ -226,15 +256,26 @@ class ImageModal extends HTMLElement {
       body: formData
     })
     const filenames = await result.json()
-    const gallery = this.shadow.querySelector('.gallery')
     filenames.forEach(file => {
-      const image = document.createElement('img')
-      image.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
-      image.title = 'hola'
-      image.alt = 'hola'
-      image.classList.add('image')
-      gallery.appendChild(image)
+      this.createImage(file)
     })
+  }
+
+  createImage (file) {
+    const gallery = this.shadow.querySelector('.gallery')
+    const container = document.createElement('div')
+    const image = document.createElement('img')
+    const deleteImage = document.createElement('button')
+    container.classList.add('image-container')
+    image.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
+    image.title = 'hola'
+    image.alt = 'hola'
+    image.classList.add('image')
+    deleteImage.innerHTML = 'x'
+    deleteImage.classList.add('delete-image')
+    container.appendChild(deleteImage)
+    container.appendChild(image)
+    gallery.appendChild(container)
   }
 }
 customElements.define('image-modal-component', ImageModal)
