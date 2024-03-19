@@ -181,6 +181,10 @@ class ImageModal extends HTMLElement {
           border-radius: 0.5rem;
           cursor: pointer;
           font: inherit;
+          &:disabled {
+            pointer-events: none;
+            filter: brightness(0.8)
+          }
         }
         
       </style>
@@ -207,7 +211,7 @@ class ImageModal extends HTMLElement {
             </form>
           </main>
           <footer>
-            <button class="submit-button">Añadir</button>
+            <button class="submit-button" disabled>Añadir</button>
           </footer>
         </div>
       </div>
@@ -218,20 +222,38 @@ class ImageModal extends HTMLElement {
         modal.classList.remove('active')
       }
       if (event.target.closest('.image-container')) {
-        event.target.closest('.image-container').parentNode.querySelector('.selected')?.classList.remove('selected')
-        event.target.closest('.image-container').classList.add('selected')
+        const imageContainer = event.target.closest('.image-container')
+        if (imageContainer.classList.contains('selected')) {
+          imageContainer.classList.remove('selected')
+        } else {
+          imageContainer.parentNode.querySelector('.selected')?.classList.remove('selected')
+          imageContainer.classList.add('selected')
+        }
+        this.toggleDisabled()
       }
       if (event.target.closest('.delete-image')) {
-        const endpoint = event.target.closest('.delete-image').parentNode.querySelector('.image').src
+        const imageContainer = event.target.closest('.delete-image').parentNode
+        const endpoint = imageContainer.querySelector('.image').src
         const response = await fetch(endpoint, {
           method: 'DELETE'
         })
         const data = await response.json()
-        console.log(data)
+        if (response.status === 200) {
+          imageContainer.remove()
+        } else {
+          alert(data.message)
+        }
       }
       if (event.target.closest('.submit-button')) {
         const selectedImage = this.shadow.querySelector('.image-container.selected .image')
-        console.log(selectedImage)
+        const title = this.shadow.querySelector('#title').value
+        const alt = this.shadow.querySelector('#alt').value
+        const imageData = {
+          imageName: selectedImage.alt,
+          imageTitle: title,
+          imageAlt: alt
+        }
+        console.log(imageData)
       }
     })
     const input = this.shadow.querySelector('#image')
@@ -268,14 +290,19 @@ class ImageModal extends HTMLElement {
     const deleteImage = document.createElement('button')
     container.classList.add('image-container')
     image.src = `${import.meta.env.VITE_API_URL}/api/admin/images/${file}`
-    image.title = 'hola'
-    image.alt = 'hola'
+    image.title = file
+    image.alt = file
     image.classList.add('image')
     deleteImage.innerHTML = 'x'
     deleteImage.classList.add('delete-image')
     container.appendChild(deleteImage)
     container.appendChild(image)
     gallery.appendChild(container)
+  }
+
+  toggleDisabled () {
+    const button = this.shadow.querySelector('.submit-button')
+    this.shadow.querySelector('.gallery .selected') ? button.disabled = false : button.disabled = true
   }
 }
 customElements.define('image-modal-component', ImageModal)

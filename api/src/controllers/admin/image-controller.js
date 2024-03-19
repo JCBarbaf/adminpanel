@@ -1,7 +1,7 @@
 const mongooseDb = require('../../models/mongoose')
 const Image = mongooseDb.Image
 const moment = require('moment')
-const fs = require('fs')
+const path = require('path')
 const fs = require('fs')
 
 exports.create = async (req, res) => {
@@ -99,22 +99,23 @@ exports.update = (req, res) => {
 
 exports.delete = async (req, res) => {
   const filename = req.params.filename
-  const path = path.join(__dirname, `../storage/images/gallery/original`, filename)
-  fs.unlink(path, (err) => {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log('File is deleted.')
-    }
-  })
+  const folders = ['original','thumbnail']
+  
   try {
     const data = await Image.findOneAndUpdate({filename}, { deletedAt: new Date() })
     
     if (data) {
-      try {
-        
-      } catch (err) {
-
+      for (let i = 0; i < folders.length; i++) {
+        const url = path.join(__dirname, `../../storage/images/gallery/${folders[i]}`, filename)
+        fs.unlink(url, (err) => {
+          if (err) {
+            res.status(500).send({
+              message: 'Error al borrar el archivo ' + filename
+            })
+          } else {
+            console.log('File is deleted.')
+          }
+        })
       }
       res.status(200).send({
         message: 'El elemento ha sido borrado correctamente.'
@@ -127,7 +128,7 @@ exports.delete = async (req, res) => {
   } catch (err) {
     console.log(err)
     res.status(500).send({
-      message: 'Algún error ha surgido al borrar la imagen=' + filename
+      message: 'Algún error ha surgido al borrar la imagen ' + filename
     })
   }
 }
