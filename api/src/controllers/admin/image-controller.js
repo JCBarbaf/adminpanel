@@ -102,7 +102,10 @@ exports.delete = async (req, res) => {
   const folders = ['original','thumbnail']
   
   try {
-    const data = await Image.findOneAndUpdate({filename}, { deletedAt: new Date() })
+    const data = await Image.findOneAndUpdate(
+      { filename, deletedAt: { $exists: false } }, 
+      { deletedAt: new Date() }
+    );
     
     if (data) {
       for (let i = 0; i < folders.length; i++) {
@@ -126,7 +129,6 @@ exports.delete = async (req, res) => {
       })
     }
   } catch (err) {
-    console.log(err)
     res.status(500).send({
       message: 'Algún error ha surgido al borrar la imagen ' + filename
     })

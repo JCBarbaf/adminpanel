@@ -221,16 +221,6 @@ class ImageModal extends HTMLElement {
       if (event.target.closest('.close')) {
         modal.classList.remove('active')
       }
-      if (event.target.closest('.image-container')) {
-        const imageContainer = event.target.closest('.image-container')
-        if (imageContainer.classList.contains('selected')) {
-          imageContainer.classList.remove('selected')
-        } else {
-          imageContainer.parentNode.querySelector('.selected')?.classList.remove('selected')
-          imageContainer.classList.add('selected')
-        }
-        this.toggleDisabled()
-      }
       if (event.target.closest('.delete-image')) {
         const imageContainer = event.target.closest('.delete-image').parentNode
         const endpoint = imageContainer.querySelector('.image').src
@@ -239,10 +229,22 @@ class ImageModal extends HTMLElement {
         })
         const data = await response.json()
         if (response.status === 200) {
+          if (imageContainer.classList.contains('selected')) {
+            imageContainer.classList.remove('selected')
+          }
           imageContainer.remove()
         } else {
           alert(data.message)
         }
+      } else if (event.target.closest('.image-container')) {
+        const imageContainer = event.target.closest('.image-container')
+        if (imageContainer.classList.contains('selected')) {
+          imageContainer.classList.remove('selected')
+        } else {
+          imageContainer.parentNode.querySelector('.selected')?.classList.remove('selected')
+          imageContainer.classList.add('selected')
+        }
+        this.toggleDisabled()
       }
       if (event.target.closest('.submit-button')) {
         const selectedImage = this.shadow.querySelector('.image-container.selected .image')
@@ -278,8 +280,10 @@ class ImageModal extends HTMLElement {
       body: formData
     })
     const filenames = await result.json()
+    this.shadow.querySelector('.gallery .selected')?.classList.remove('selected')
     filenames.forEach(file => {
-      this.createImage(file)
+      const container = this.createImage(file)
+      container.classList.add('selected')
     })
   }
 
@@ -298,6 +302,7 @@ class ImageModal extends HTMLElement {
     container.appendChild(deleteImage)
     container.appendChild(image)
     gallery.appendChild(container)
+    return container
   }
 
   toggleDisabled () {
