@@ -99,38 +99,16 @@ exports.update = (req, res) => {
 
 exports.delete = async (req, res) => {
   const filename = req.params.filename
-  const folders = ['original','thumbnail']
-  
+
   try {
-    const data = await Image.findOneAndUpdate(
-      { filename, deletedAt: { $exists: false } }, 
-      { deletedAt: new Date() }
-    );
-    
-    if (data) {
-      for (let i = 0; i < folders.length; i++) {
-        const url = path.join(__dirname, `../../storage/images/gallery/${folders[i]}`, filename)
-        fs.unlink(url, (err) => {
-          if (err) {
-            res.status(500).send({
-              message: 'Error al borrar el archivo ' + filename
-            })
-          } else {
-            console.log('File is deleted.')
-          }
-        })
-      }
-      res.status(200).send({
-        message: 'El elemento ha sido borrado correctamente.'
-      })
-    } else {
-      res.status(404).send({
-        message: `No se puede borrar el elemento con la imagen ${filename}. Tal vez no se ha encontrado el elemento.`
-      })
-    }
-  } catch (err) {
+    await req.imageService.deleteImages(filename)
+    await Image.deleteOne({ filename })
+    res.status(200).send({
+      message: 'El elemento ha sido borrado correctamente'
+    })
+  } catch (error) {
     res.status(500).send({
-      message: 'Algún error ha surgido al borrar la imagen ' + filename
+      message: error.message || 'Algún error ha surgido al borrar el dato.'
     })
   }
 }

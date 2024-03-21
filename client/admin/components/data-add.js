@@ -141,24 +141,6 @@ class DataAdd extends HTMLElement {
             input[type="file"] {
               display: none;
             }
-            .add-image {
-              --size: 6rem;
-              width: var(--size);
-              height: var(--size);
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin: 2% 0;
-              background-color: var(--tertiary-color,rgb(150, 156, 172));
-              color: rgb(0,0,0,0.2);
-              border: var(--border,3px solid rgba(0, 0, 0, 0.2));
-              border-radius: 0.5rem;
-              cursor: pointer;
-              font-size: 4rem;
-              &:hover {
-                transform: scale(1.1);
-              }
-            }
             /* Animaciones */
             @keyframes shake {
               0% {
@@ -262,18 +244,15 @@ class DataAdd extends HTMLElement {
               <div class="form-row">
                 <div class="form-field">
                   <label for="avatar">Avatar:</label>
-                  <button class="add-image">+<button>
-                  <input type="file" name="avatar" id="avatar">
+                  <image-add-component name="avatar"></image-add-component>
                 </div>
                 <div class="form-field">
                   <label for="banner">Banner:</label>
-                  <button class="add-image">+<button>
-                  <input type="file" name="banner" id="banner">
+                  <image-add-component name="banner"></image-add-component>
                 </div>
                 <div class="form-field">
                   <label for="logo">Logo:</label>
-                  <button class="add-image">+<button>
-                  <input type="file" name="logo" id="logo">
+                  <image-add-component name="logo"></image-add-component>
                 </div>
               </div>
             </div>
