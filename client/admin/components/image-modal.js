@@ -1,3 +1,5 @@
+import { store } from '../redux/store.js'
+import { showImage, removeImage } from '../redux/images-slice.js'
 class ImageModal extends HTMLElement {
   constructor () {
     super()
@@ -247,15 +249,14 @@ class ImageModal extends HTMLElement {
         this.toggleDisabled()
       }
       if (event.target.closest('.submit-button')) {
+        let image = store.getState().images.imageGallery
         const selectedImage = this.shadow.querySelector('.image-container.selected .image')
         const title = this.shadow.querySelector('#title').value
         const alt = this.shadow.querySelector('#alt').value
-        const imageData = {
-          imageName: selectedImage.alt,
-          imageTitle: title,
-          imageAlt: alt
-        }
-        console.log(imageData)
+        const filename = selectedImage.alt
+        image = { ...image, title, alt, filename }
+        store.dispatch(showImage(image))
+        modal.classList.remove('active')
       }
     })
     const input = this.shadow.querySelector('#image')

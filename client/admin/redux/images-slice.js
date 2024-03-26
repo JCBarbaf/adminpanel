@@ -4,22 +4,24 @@ export const imagesSlice = createSlice({
   name: 'images',
   initialState: {
     imageGallery: null,
-    showedImage: null,
     showedImages: [],
     selectedImages: []
   },
   reducers: {
     setImageGallery: (state, action) => {
-      state.imageGallery = action.payload.name
-      console.log(state.imageGallery)
+      state.imageGallery = action.payload
+      // console.log(state.imageGallery)
     },
     showImage: (state, action) => {
+      state.showedImages.push(action.payload)
     },
     showImages: (state, action) => {
     },
     addImage: (state, action) => {
     },
     removeImage: (state, action) => {
+      state.showedImages.splice(state.showedImages.indexOf(action.payload), 1)
+      console.log(state.showedImages)
     },
     removeImages: (state, action) => {
     }
